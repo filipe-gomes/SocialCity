@@ -1,0 +1,32 @@
+<template name="group">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+	{{> wall}}
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

@@ -1,0 +1,32 @@
+
+@media screen and (min-width: 1px) {
+	
+	.comment-content{overflow:hidden;}
+	
+	.comments-container {margin:20px auto 15px;}
+
+	.btnUserActions{
+		font-size: 10px !important;
+		width: 58px;
+		padding: 5px !important;
+		margin: 0px;
+	}
+	.btnUserActions i{
+		font-size:26px !important;
+	}
+	
+	
+}
+
+@media screen and (min-width: 768px) {
+
+	.btnUserActions{
+		font-size:18px !important;
+		width:100px;
+	}
+	.btnUserActions i{
+		font-size:26px !important;
+	}
+
+}
+

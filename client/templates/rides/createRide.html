@@ -1,0 +1,465 @@
+<template name="createRide">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+
+	<!-- Try DOER Now -->
+	<div class="blog section section-invert customMenuPadding">
+		<h3 class="section-title text-center m-1">Create a DOER Activity</h3>
+		<div class="container">
+			
+			<div class="card-deck">
+			
+				<div class="col-md-12 py-4">
+			
+						<form id="btnCreateNewActivity">
+					
+							<div class="card">
+								<div class="form-group col-sm-12">
+									<label>Activity Title</label>
+									<input type="text" class="form-control" name="newTitle" required="true"/>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="form-group col-sm-12">
+									<label>Organizer</label>
+									
+									
+							
+										<ul class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="nav-home-tab" data-toggle="pill" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+													<i class="far fa-smile"></i> Personal
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+													<i class="fas fa-dot-circle"></i> Group
+												</a>
+											</li>
+										</ul>
+										
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+											
+												<div class="col-lg-12">
+													<label>Free Registration Type</label>
+												
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="organizer" id="" value="registerOnline" checked />
+														Andrew Normore
+													  </label>
+													</div>
+													
+												</div>
+												
+											</div>
+											
+											<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+											
+												<div class="checkbox col-lg-12">
+												
+													<label>Paid Membership</label>
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="organizer" id="" value="Anyone can join" checked>
+														Group One
+													  </label>
+													</div>
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="organizer" id="" value="Membership requires approval">
+														This is GROUP #2 yesss
+													  </label>
+													</div>
+													
+												</div>
+											
+											</div>
+										</div>
+										
+										
+										
+								</div>
+							</div>
+							
+							<div class="card  mt-4">
+								
+								<!-- SUMMERNOTE -->
+								<div class="form-group col-sm-12">
+									<label>Description</label>
+									<div class="form-control summernote newDescriptionSummernote" style="height:200px;"></div>
+								</div>
+								<!-- SUMMERNOTE -->
+								
+								<ul class="nav nav-tabs mb-3 mt-4" id="nav-tab-physicalOrDigital" role="tablist">
+									<li class="nav-item">
+										<a class="nav-link active" id="nav-eventRegular-tab" data-toggle="pill" href="#nav-eventRegular" role="tab" aria-controls="nav-eventRegular" aria-selected="true">
+											<i class="fas fa-map-marked-alt"></i> Regular Event
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="nav-eventOnline-tab" data-toggle="pill" href="#nav-eventOnline" role="tab" aria-controls="nav-profile" aria-selected="false">
+											<i class="fas fa-link"></i> Online Event
+										</a>
+									</li>
+								</ul>
+								
+								<div class="tab-content" id="nav-tabContent-eventRegular">
+									<div class="tab-pane fade show active" id="nav-eventRegular" role="tabpanel" aria-labelledby="nav-eventRegular-tab">
+									
+										<div class="col-lg-12">
+										
+											<label>Regular Event</label>
+											
+											<div class="form-group col-sm-12">
+												<label>Address</label>
+												<input type="text" class="form-control" name="newAddress" required="true">
+											</div>											
+											
+										</div>
+										
+									</div>
+									
+									<div class="tab-pane fade" id="nav-eventOnline" role="tabpanel" aria-labelledby="nav-eventOnline-tab">
+									
+										<div class="checkbox col-lg-12">
+										
+											<label>Online Event</label>
+											
+											<div class="form-group col-sm-12">
+												<label>URL:</label>
+												<input type="text" class="form-control" name="newAddress" required="true">
+											</div>		
+											
+										</div>
+									
+									</div>
+								</div>
+								
+								<div class="form-group col-lg-12">
+								
+									<label>Category</label>
+							 
+									<select class=" input-large form-control" name="newCategory" required="true">
+										<option value="" selected="selected">Select</option>
+										<option value="Art">Art</option>
+										<option value="Causes">Causes</option>
+										<option value="Comedy">Comedy</option>
+										<option value="Crafts">Crafts</option>
+										<option value="Dance">Dance</option>
+										<option value="Drinks">Drinks</option>
+										<option value="Film">Film</option>
+										<option value="Fitness">Fitness</option>
+										<option value="Food">Food</option>
+										<option value="Games">Games</option>
+										<option value="Gardening">Gardening</option>
+										<option value="Health">Health</option>
+										<option value="Home">Home</option>
+										<option value="Literature">Literature</option>
+										<option value="Music">Music</option>
+										<option value="Networking">Networking</option>
+										<option value="Party">Party</option>
+										<option value="Religion">Religion</option>
+										<option value="Shopping">Shopping</option>
+										<option value="Sports">Sports</option>
+										<option value="Theatre">Theatre</option>
+										<option value="Welness">Welness</option>
+										<option value="Other">Other</option>
+										<option value="Adult">Adult</option>
+									</select>
+									
+								</div>	
+								
+							
+							</div>
+							
+							<div class="card mt-4">
+							
+							
+								
+								<div class="row" style="margin:0px;">
+									<div class="form-group col-lg-6">
+									
+									
+									
+										<ul class="nav nav-tabs mb-3 mt-4" id="nav-tab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="nav-single-tab" data-toggle="pill" href="#nav-single" role="tab" aria-controls="nav-single" aria-selected="true">
+													<i class="fas fa-calendar-plus"></i> One time event
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-recurring" role="tab" aria-controls="nav-profile" aria-selected="false">
+													<i class="fas fa-recycle"></i> Recurring Event
+												</a>
+											</li>
+										</ul>
+										
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-single" role="tabpanel" aria-labelledby="nav-single-tab">
+											
+												<div class="col-lg-12">
+													<label>One time event</label>
+												
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="repeatSchedule" id="" value="Open to all ages" checked />
+														One time event
+													  </label>
+													</div>
+													
+												</div>
+												
+											</div>
+											
+											<div class="tab-pane fade" id="nav-recurring" role="tabpanel" aria-labelledby="nav-profile-tab">
+											
+												<div class="checkbox col-lg-12">
+												
+													<label>Recurring Event</label>
+													
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="repeatSchedule" id="" value="Directed to children under the age of 18" />
+														Every day
+													  </label>
+													</div>
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="repeatSchedule" id="" value="Directed to adults only" />
+														Once every week
+													  </label>
+													</div>
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="repeatSchedule" id="" value="Directed to adults only" />
+														Once a month
+													  </label>
+													</div>
+													
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="repeatSchedule" id="" value="Directed to adults only" />
+														Once a year
+													  </label>
+													</div>
+													
+												</div>
+											
+											</div>
+										</div>
+										
+									
+										
+									
+									</div>
+								</div>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+								<div class="form-group col-lg-12">
+									<label>Dates</label>
+									
+									<div class="input-group" data-autoclose="true">
+										<div name="newDates" type="text" value="" class="form-control datepicker" autocomplete="off" style="width:100% !important;"></div>
+									</div>
+									{{#each dates}}
+										 <script>
+											setTimeout(function(){
+											
+												console.log("running interval");
+											
+												var theDate = "{{this}}";
+												var theSplit = theDate.split("/");
+											
+												 $.each($(".datepicker").find("td"), function () {                              
+													if($(this).text()==theSplit[1]){
+														$(this).addClass("active");
+													}
+													if("0"+$(this).text()==theSplit[1]){
+														$(this).addClass("active");
+													}
+												 });
+												 
+											},1000);
+										  </script>
+									
+										<strong class="text-danger">{{convertToDate this}}</strong>
+										<br />
+									{{/each}}
+									
+								</div>
+								
+								<div class="row" style="margin:0px;">
+									<div class="form-group col-lg-6">
+										<label>Start Time</label>
+										
+										<div class="input-group" data-autoclose="true">
+																
+											<div class="input-group" data-autoclose="true">
+												<input name="newStartTime" type="text" class="form-control timepicker"  value="" required="true" autocomplete="off" />
+											</div>
+											
+										</div>						
+									</div>
+									
+									<div class="form-group col-lg-6">
+										<label>End Time</label>
+										
+										<div class="input-group" data-autoclose="true">
+																
+											<div class="input-group" data-autoclose="true">
+												<input name="newEndTime" type="text" class="form-control timepicker"  value="" required="true" autocomplete="off" />
+											</div>
+											
+										</div>						
+									</div>
+								</div>
+								
+								
+							</div>
+							
+							
+							
+							
+							<div class="card  mt-4" style="padding:10px;">
+							
+								<label>Events Ticket</label>
+								
+								
+								<span class="uiActionTickets">
+								
+									<div class="row">
+								
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Ticket name</label>
+											<input type="text" class="form-control" name="newAddress" required="true" placeholder="Early bird, general, etc">
+										</div>	
+										
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Number of tickets?</label>
+											<input type="text" class="form-control" name="newAddress" required="true" placeholder="100">
+										</div>	
+										
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Price</label>
+											<input type="text" class="form-control" name="newAddress" required="true"  placeholder="$0.00">
+										</div>	
+										
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Remove?</label>
+											<br />
+											<div class="btn btn-primary uiActionTicketRowDelete">
+												<i class="far fa-trash-alt"></i>
+											</div>
+										</div>	
+										
+										<hr />
+										
+									</div>
+									
+								</span>
+								
+								<div class="row">
+									<div class="col-sm-12">
+									
+										<div class="btn btn-primary uiActionTicketRowCreate">
+											<i class="far fa-plus-square"></i> Create New Ticket
+										</div>
+											
+									</div>
+								</div>
+							
+							</div>
+							
+							
+							
+							
+							
+							
+							<div class="card  mt-4">
+							
+								
+								<div class="checkbox col-lg-12">
+								
+									<label>Age Restriction</label>
+								
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Open to all ages" checked>
+										Open to all ages
+									  </label>
+									</div>
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Directed to children under the age of 18">
+										Directed to minors under the age of 18
+									  </label>
+									</div>
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Directed to adults only">
+										Directed to adults over the age of 18+
+									  </label>
+									</div>
+									
+								</div>
+								
+							</div>	
+							
+							
+							<div class="card  mt-4">
+								<div class="text-center">
+									<button type="submit" class="ladda-button btn btn-lg btn-danger btn-block" data-style="slide-up">
+										<span class="ladda-label">Create Activity</span>
+									</button>
+								</div>
+							</div>
+							
+						</form>
+						
+				
+				</div>
+			</div>
+			
+		</div>	
+	</div>	
+
+
+	{{> footer}}
+
+
+</template>

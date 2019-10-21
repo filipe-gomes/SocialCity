@@ -1,0 +1,2 @@
+meteor npm install --save desandro-matches-selector
+meteor npm install --save ev-emitter get-size fizzy-ui-utils outlayer

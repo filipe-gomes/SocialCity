@@ -1,0 +1,486 @@
+<template name="ride">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+
+	<!-- Try DOER Now -->
+	{{#each Activities}}
+		<div class="blog section customMenuPadding">
+			<div class="container">
+			
+			
+				<!-- Activity -->
+				<div class="row">		
+				
+					<div class="col-sm-12 col-md-12">
+						
+						{{#if isOwner}}
+							<div class="btn btn-primary" onClick="$('#fileInput').trigger('click');">Change Photo</div>
+							<input id="fileInput" name="fileInput" class="form-control input-md"  type="file" style="display:none;" />
+							
+							<script>
+							
+									$("input[name=fileInput]").change(function() {
+										if(Activities.findOne({_id:"{{_id}}"}).ownerId == Meteor.userId()){
+										
+										var names = [];
+										for (var i = 0; i < $(this).get(0).files.length; ++i) {
+											names.push($(this).get(0).files[i].name + ", ");
+										}
+										
+										input = document.getElementById('fileInput');
+										for(var i = 0; i < input.files.length ; i++){(function(i) {
+											var file = input.files[i];
+											
+											// Send to Cloudinary
+											Cloudinary.upload( file, function(error, result){
+											
+												if(error){
+													alert(error);
+												}
+																
+												Meteor.call('cloudinaryUpload',
+													"{{_id}}",
+													"https://res.cloudinary.com/doersocial-com/image/upload/a_0/"+result.public_id+"."+result.format, 
+												);
+												console.log(result);
+												
+											});
+												
+										})(i); }
+											
+										toastr.success('Uploading Photo');
+										$("#fileInput").val("");
+											
+										}else{
+											alert("Invalid Permission");
+										}
+									});
+							
+							</script>
+							
+							<a href="/create/?id={{_id}}" class="btn btn-primary" >Edit Details</a>
+						{{/if}}
+						
+						<div class="card gedf-card">
+							<div class="card-body" style="padding:0px;">
+								
+								<!-- MOBILE -->
+								<span class="d-block d-md-none">
+									
+									<img src="{{photo}}" width="100%" />
+									
+									<!-- left -->
+									<div style="position:absolute; width:50%; bottom:-2px; height:60px; background:rgba(0,0,0,0.4);">
+										
+										<img src="{{ownerPhoto}}" class="doerProfileImage"  style="float:left; width:120px; height:120px; position:relative; bottom:61px;"/>
+										
+										<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;" >{{ownerName}}</div>
+										<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;"><i class="fa fa-star" aria-hidden="true"></i> 0</div>
+										
+									</div>
+									<!-- left -->
+									
+									<!-- right -->
+									<a href="/friending/@{{ownerName}}" style="position:absolute; bottom:-2px; width:50%; right:0px; height:60px; background:rgba(0,0,0,0.4);">
+										
+										<!--
+										<img src="/images/common/card-1.jpg" class="img-responsive" width="50%" style="float:right;"/> 
+										
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;">Sky Diving</div>
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;"><i class="fa fa-user" aria-hidden="true"></i> 11 DOERS</div>
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;"><i class="fa fa-clock-o" aria-hidden="true"></i> 6 Hours</div>
+										-->
+										
+									</a>
+									<!-- right -->
+								</span>
+								<!-- MOBILE -->
+								
+								<!-- DESKTOP -->
+								<span class="d-none d-md-block">
+									<img src="{{photo}}" width="100%" style="max-height:600px;" />
+									
+									<!-- left -->
+									<div style="position:absolute; width:50%; bottom:-2px; height:80px; background:rgba(0,0,0,0.4);">
+										
+										<img src="{{ownerPhoto}}" class="doerProfileImage"  style="float:left; width:230px; height:230px; display:block; position:relative; bottom:150px;"/>
+										
+										<span class="text-white pt-4 pl-2 pr-2">Created by {{ownerName}}</span>
+										<br />
+										<span class="text-white pt-4 pl-2 pr-2"><i class="fa fa-star" aria-hidden="true"></i> 0</span>
+										
+									</div>
+									<!-- left -->
+									
+									<!-- right -->
+									<a href="/group/extreme-sky-divers-canada-12312312" style="position:absolute; width:50%; bottom:-2px; right:0px; height:80px; background:rgba(0,0,0,0.4);">
+										
+										<!--
+										<img src="/images/common/card-1.jpg" class="img-responsive" height="81" style="float:right;"/> 
+										
+										<div class="text-white pl-2 pr-2 text-right" style="display:block; position:relative;  right:10px;">Extreme Sky Divers</div>
+										<div class="text-white pl-2 pr-2 text-right" style="display:block; position:relative; right:10px;"><i class="fa fa-user" aria-hidden="true"></i> 236 DOERS</div>
+										<div class="text-white pl-2 pr-2 text-right" style="display:block; position:relative; right:10px;"><i class="fa fa-clock-o" aria-hidden="true"></i> 12 Activites</div>
+										-->
+										
+									</a>
+									<!-- right -->
+								</span>
+								<!-- DESKTOP -->
+
+							</div>
+						</div>
+						
+						<div class="card gedf-card">
+							<div class="card-body" style="padding:0px;">
+								
+								<div class="card-body row">
+								
+									
+									<div class="col-sm-12 col-md-6">
+									
+										<center>
+											<span class="text-danger">
+												<strong>
+													<h1>{{title}}</h1>
+												</strong>
+											</span>
+											<hr />
+											<strong>
+												<h2>{{doersCount}} DOER's going</h2>
+											</strong>
+											<p>{{ageRestriction}}</p>
+											<hr />
+											{{#each dates}}
+												<strong class="text-danger">{{convertToDate this}}</strong>
+												<br />
+											{{/each}}
+											<hr />
+											<strong class="text-danger">{{startTime}}</strong> to <strong class="text-danger">{{endTime}}</strong>
+											<hr />
+											<h3 class="text-success">$ {{cost}} <br />{{costType}}</h3>
+										</center>
+										
+									</div>
+									
+									<div class="col-sm-12 col-md-6">
+										<div class="datepicker"></div>
+									</div>
+									
+								</div>
+							</div>
+							
+							<div class="card-body" >							
+								<center>
+								
+									{{#if registration "none"}}
+										<div class="btn btn-danger btn-pill btn-lg uiActionRegisterNow" data-action="register" data-activityId="{{_id}}">Register Now!</div>
+									{{/if}}
+									{{#if registration "going"}}
+										<div class="btn btn-success btn-pill btn-lg ">Registration Complete</div>
+									{{/if}}
+									
+								</center>
+							</div>
+							
+							<div class="card-body" >
+								<div style="border:1px solid lightgrey; padding:8px; border-radius:4px; margin-bottom:4px;">
+									{{{description}}}
+								</div>
+							</div>	
+							
+							
+						</div>
+						
+					</div>
+					
+					
+				</div>
+				<!-- Activity -->
+				
+				<div class="row mt-4">
+					<div class="col-sm-12 col-md-12">
+					
+						
+					
+						<div class="card-deck">
+							<div class="card mb-4">
+							
+								<h1 class="text-center m-1">{{address}}</h1>
+						
+								<center>
+									<a target="_blank" href="https://www.google.ca/maps/dir/?api=1&destination={{address}}" class="btn btn-primary btn-sm mb-2">
+										<i class="fa fa-map-o" aria-hidden="true"></i> Open in Google Maps
+									</a>
+								</center>
+							
+								<div id="map" style="height:700px; width:100%;"></div>
+							</div>								
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				<!-- Doers List -->
+				<div class="row mt-4">
+					<div class="col-sm-12 col-md-12">
+						
+						
+						<div class="card-deck">
+							<div class="card mb-4">
+							
+									<h1 class="text-center m-1">YouDoers Going:</h1>
+							
+									<div class="row">
+									{{#each doerGoing}}
+									
+										<div class="col-4 col-md-3">
+									
+											<!-- MOBILE -->
+											<a href="/friending/@{{username}}"  class="d-block d-md-none">
+													
+												<center>
+													<img src="{{photo}}" class="doerProfileImage img-fluid"  style="min-height:120px; position:relative;"/>
+													<div class="text-black pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;" >{{nameFirst}} {{nameLast}}</div>
+												</center>
+													
+											</a>
+											<!-- MOBILE -->
+											
+											<!-- DESKTOP -->
+											<a href="/friending/@{{username}}" class="d-none d-md-block">
+												
+												<center>
+													<img src="{{photo}}" class="doerProfileImage"  style="width:230px; height:230px; display:block; position:relative;"/>
+													<span class="text-black pt-4 pl-2 pr-2">{{nameFirst}} {{nameLast}}</span>
+												</center>
+													
+											</a>
+											<!-- DESKTOP -->
+										
+										</div>
+									{{/each}}
+									</div>
+								
+							</div>
+						</div>
+				
+					</div>
+				</div>
+				<!-- Doers List -->
+				
+				
+				
+				<!--- CREATE COMMENT -->
+				<div class="card gedf-card mt-4">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
+									Post
+								</a>
+							</li>
+							<!-- 
+							<li class="nav-item">
+								<a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+							</li>
+							-->
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+								<div class="form-group">
+									<label class="sr-only" for="postMessage">post</label>
+									<textarea class="form-control summernote" id="postMessage" rows="3" placeholder="What are you thinking?"></textarea>
+								</div>
+							</div>
+							<!--
+							<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+								<div class="form-group">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" id="customFile">
+										<label class="custom-file-label" for="customFile">Upload image</label>
+									</div>
+								</div>
+								<div class="py-4"></div>
+							</div>
+							-->
+						</div>
+						<div class="btn-toolbar justify-content-between">
+							<div class="btn-group">
+								<button type="submit" class="btn btn-primary" id="submitPostButton">Share!</button>		
+							</div>
+							<!--
+							<div class="btn-group">
+								<button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
+									<i class="fa fa-globe"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+									<a class="dropdown-item" href="#"><i class="fa fa-users"></i> Connections</a>
+									<a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
+								</div>
+							</div>
+							-->
+						</div>
+					</div>
+				</div>
+			<!--- CREATE COMMENT -->
+				
+				<!--- EACH posts -->
+				{{#each posts}}
+					<div class="card gedf-card mt-4">
+						<div class="card-header">
+							
+								
+							<div class="row">
+								<div style="width:50%; float:left;">
+									<img src="{{ownerPhoto}}" class="doerProfileImage"  style="position:absolute;  float:left; width:35px; height:35px; border:2px solid black; top:6px;"/>
+									<a href="/@{{ownerUsername}}" style="margin-left:40px;">{{ownerNameFirst}} {{ownerNameLast}}</a>
+								</div>
+								<div style="width:50%; float:right;">
+									<span style="float:right;">
+										{{privacy}}
+										<i class="fa fa-clock"></i> <i>{{timeAgo timeCreated}}</i>
+									</span>
+								</div>
+							
+							</div>
+							<!--
+							<div class="dropdown">
+								<button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fa fa-ellipsis-h"></i>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+									<div class="h6 dropdown-header">Configuration</div>
+									<a class="dropdown-item" href="#">Save</a>
+									<a class="dropdown-item" href="#">Hide</a>
+									<a class="dropdown-item" href="#">Report</a>
+								</div>
+							</div>
+							-->
+
+						</div>
+						<div class="card-body">
+							<p class="card-text">
+								{{{message}}}
+							</p>
+							<p class="card-text" style="font-size:22px;">
+								<a href="#" class="card-link emotion" data-emotion="funny" data-voteid="{{_id}}" data-context="post">
+									{{emotionFunny}} <i class="far fa-grin-tongue-squint"></i>
+								</a>
+								<a href="#" class="card-link emotion" data-emotion="happy" data-voteid="{{_id}}" data-context="post">
+									{{emotionHappy}} <i class="far fa-laugh-beam"></i>
+								</a>
+								<a href="#" class="card-link emotion" data-emotion="shocked" data-voteid="{{_id}}" data-context="post">
+									{{emotionShocked}} <i class="far fa-surprise"></i>
+								</a>
+								<a href="#" class="card-link emotion" data-emotion="unhappy" data-voteid="{{_id}}" data-context="post">
+									{{emotionUnhappy}} <i class="far fa-frown"></i>
+								</a>
+								<a href="#" class="card-link emotion" data-emotion="sad" data-voteid="{{_id}}" data-context="post">
+									{{emotionSad}} <i class="far fa-sad-cry"></i>
+								</a>
+							</p>
+						</div>
+						
+						<div class="card-footer">
+						
+							{{#each comment}}
+								<!-- COMMENT ROW -->
+								<div class="row" style="background:white; padding:8px; margin:0px; border-radius:4px; border:1px solid #ccc;">
+									
+										<div class="card-body">
+											<div class="row">
+												<div class="col-6">
+													<img src="{{ownerPhoto}}" class="doerProfileImage"  style="  float:left; width:35px; height:35px; border:2px solid black; top:6px;"/>
+													<a href="/@{{ownerUsername}}" style="display:block; padding-left:40px; padding-top:3px;">{{ownerNameFirst}} {{ownerNameLast}}</a>
+												</div>
+												<div class="col-6">
+													<span style="float:right">
+														<i class="fa fa-clock"></i> {{timeAgo timeCreated}}
+													</span>
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-12">
+													<p class="card-text" style="padding-top:4px;">
+														{{message}}
+													</p>
+													<!--
+													<p class="card-text" style="font-size:22px; display:none;">
+														<a href="#" class="card-link emotion" data-emotion="funny" data-voteid="{{_id}}" data-context="comment">
+															{{emotionFunny}} <i class="far fa-grin-tongue-squint"></i>
+														</a>
+														<a href="#" class="card-link emotion" data-emotion="happy" data-voteid="{{_id}}" data-context="comment">
+															{{emotionHappy}} <i class="far fa-laugh-beam"></i>
+														</a>
+														<a href="#" class="card-link emotion" data-emotion="shocked" data-voteid="{{_id}}" data-context="comment">
+															{{emotionShocked}} <i class="far fa-surprise"></i>
+														</a>
+														<a href="#" class="card-link emotion" data-emotion="unhappy" data-voteid="{{_id}}" data-context="comment">
+															{{emotionUnhappy}} <i class="far fa-frown"></i>
+														</a>
+														<a href="#" class="card-link emotion" data-emotion="sad" data-voteid="{{_id}}" data-context="comment">
+															{{emotionSad}} <i class="far fa-sad-cry"></i>
+														</a>
+													</p>
+													-->
+												</div>
+											
+											</div>
+										</div>
+										
+									
+								</div>
+								
+								<!-- COMMENT ROW -->
+							{{/each}}
+							
+							
+							<!-- ADD COMMENT -->
+							<form class="submitTheCommentToPost">
+								<input type="hidden" name="submitCommentToPostId" value="{{_id}}" />
+								<input style="margin-top:8px;" class="form-control submitComment" name="submitComment" placeholder="Add your comment..." autocomplete="off"  />
+							</form>
+							<!-- ADD COMMENT -->
+							
+						</div>
+					</div>
+				{{/each}}
+				<!--- EACH Comments -->
+			
+			
+			</div>
+		</div>
+	{{/each}}
+		
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

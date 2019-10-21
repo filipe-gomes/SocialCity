@@ -1,0 +1,339 @@
+<template name="activity">
+
+	<!-- Try DOER Now -->
+	{{#each Activities}}
+
+						{{#if isOwner}}
+							<div class="btn btn-primary" onClick="$('#fileInput').trigger('click');">Change Photo</div>
+							<input id="fileInput" name="fileInput" class="form-control input-md"  type="file" style="display:none;" />
+
+							<script>
+
+									$("input[name=fileInput]").change(function() {
+										if(Activities.findOne({_id:"{{_id}}"}).ownerId == Meteor.userId()){
+
+										var names = [];
+										for (var i = 0; i < $(this).get(0).files.length; ++i) {
+											names.push($(this).get(0).files[i].name + ", ");
+										}
+
+										input = document.getElementById('fileInput');
+										for(var i = 0; i < input.files.length ; i++){(function(i) {
+											var file = input.files[i];
+
+											// Send to Cloudinary
+											Cloudinary.upload( file, function(error, result){
+
+												if(error){
+													alert(error);
+												}
+
+												Meteor.call('cloudinaryUpload',
+													"{{_id}}",
+													result.public_id+"."+result.format,
+												);
+												console.log(result);
+
+											});
+
+										})(i); }
+
+										toastr.success('Uploading Photo');
+										$("#fileInput").val("");
+
+										}else{
+											alert("Invalid Permission");
+										}
+									});
+
+							</script>
+
+							<a href="/create/?id={{_id}}" class="btn btn-primary" >Edit Details</a>
+						{{/if}}
+
+						<div class="card gedf-card">
+							<div class="card-body" style="padding:0px;">
+
+								<!-- MOBILE -->
+								<span class="d-block d-md-none">
+
+									<img src="https://res.cloudinary.com/doersocial-com/image/upload/w_1200,h_600,c_fill,g_auto/{{photo}}" width="100%" />
+
+									<!-- left -->
+									<div style="position:absolute; width:50%; bottom:-2px; height:60px; background:rgba(0,0,0,0.4);">
+
+										<img src="https://res.cloudinary.com/doersocial-com/image/upload/w_230,h_230,c_fill,g_auto/{{ownerPhoto}}" class="doerProfileImage"  style="float:left; width:120px; height:120px; position:relative; bottom:61px;"/>
+
+										<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;" >{{ownerName}}</div>
+										<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;"><i class="fa fa-star" aria-hidden="true"></i> 0</div>
+
+									</div>
+									<!-- left -->
+
+									<!-- right -->
+									<a href="/social/@{{ownerName}}" style="position:absolute; bottom:-2px; width:50%; right:0px; height:60px; background:rgba(0,0,0,0.4);">
+
+										<!--
+										<img src="/images/common/card-1.jpg" class="img-responsive" width="50%" style="float:right;"/>
+
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;">Sky Diving</div>
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;"><i class="fa fa-user" aria-hidden="true"></i> 11 DOERS</div>
+										<div class="text-white pl-2 pr-2 text-right" style="font-size:10px; display:block; position:relative; right:8px;"><i class="fa fa-clock-o" aria-hidden="true"></i> 6 Hours</div>
+										-->
+
+									</a>
+									<!-- right -->
+								</span>
+								<!-- MOBILE -->
+
+								<!-- DESKTOP -->
+								<span class="d-none d-md-block">
+									<img src="https://res.cloudinary.com/doersocial-com/image/upload/w_1200,h_600,c_fill,g_auto/{{photo}}" width="100%" style="min-height:300px; max-height:600px;" />
+
+									<!-- left -->
+									<div style="position:absolute; width:100%; bottom:-2px; height:80px; background:rgba(0,0,0,0.4);">
+
+										{{#if checkOrganizerType 'user'}}
+											<img src="https://res.cloudinary.com/doersocial-com/image/upload/w_230,h_230,c_fill,g_auto/{{ownerPhoto}}" class="doerProfileImage"  style="float:left; width:230px; height:230px; display:block; position:relative; bottom:150px;"/>
+
+											<span class="text-white pt-4 pl-2 pr-2">Created by {{ownerName}}</span>
+											<br />
+											<span class="text-white pt-4 pl-2 pr-2"><i class="fa fa-star" aria-hidden="true"></i> 0</span>
+										{{/if}}
+										{{#if checkOrganizerType 'group'}}
+											<a href="/group/{{organizerUrl}}">
+												<img src="https://res.cloudinary.com/doersocial-com/image/upload/w_230,h_230,c_fill,g_auto/{{organizerPhoto}}" class="doerProfileImage"  style="float:left; width:230px; height:230px; display:block; position:relative; bottom:150px;"/>
+
+												<span class="text-white pt-4 pl-2 pr-2">Created by {{organizerUsername}}</span>
+												<br />
+												<span class="text-white pt-4 pl-2 pr-2"><i class="fa fa-star" aria-hidden="true"></i> 0</span>
+											</a>
+										{{/if}}
+
+									</div>
+									<!-- left -->
+
+								</span>
+								<!-- DESKTOP -->
+
+							</div>
+						</div>
+
+						<div class="card gedf-card">
+							<div class="card-body" style="padding:0px;">
+
+								<div class="card-body row">
+
+
+									<div class="col-sm-12 col-md-6">
+
+										<center>
+											<h2>{{title}}</h2>
+											<h3>{{convertToDate this.nextRunTimestamp }}</h3>
+											{{startHour}}:{{startMinute}} {{startAmPm}} – {{endHour}}:{{endMinute}} {{endAmPm}}
+											with <strong>{{doersCount}}</strong> DOERS
+
+											<div class="alert alert-info mt-4" role="alert">
+												{{shortDescription}}
+											</div>
+
+											<p>
+											{{#each tags}}
+												<a class="btn btn-sm btn-info" href="/search/activities/#{{this}}" >#{{this}}</a>
+											{{/each}}
+											</p>
+
+											<p>{{ageRestriction}}</p>
+
+										</center>
+
+									</div>
+
+									<div class="col-sm-12 col-md-6">
+										<div class="datepicker"></div>
+									</div>
+
+								</div>
+							</div>
+
+
+
+
+
+						</div>
+
+
+						<div class="card gedf-card mt-4">
+							<div class="card-body" style="padding:0px;">
+								<div class="card-body row">
+									<div class="col-sm-12">
+
+										<div class="card-body" >
+											<center>
+
+												<h2>Registration</h2>
+												{{#if tickets}}
+
+													<div class="row">
+														<div class="col-sm-3">
+															Name
+														</div>
+														<div class="col-sm-3">
+															Tickets Available
+														</div>
+														<div class="col-sm-3">
+															Price
+														</div>
+														<div class="col-sm-3">
+
+														</div>
+													</div>
+
+													{{#each tickets}}
+														<div class="row slimCard">
+
+																<div class="col-sm-3">
+																	{{name}}
+																</div>
+																<div class="col-sm-3">
+																	{{quantityRemaining}}
+																</div>
+																<div class="col-sm-3">
+																	${{price}}
+																</div>
+																<div class="col-sm-3">
+																	{{#if isFree}}
+																		<div class="btn btn-success uiActionClaimTicket" data-id="{{_id}}">Claim Ticket</div>
+																	{{else}}
+																		<div class="btn btn-primary uiActionClaimTicket" data-id="{{_id}}">Buy Ticket</div>
+																	{{/if}}
+																</div>
+
+														</div>
+													{{/each}}
+
+												{{else}}
+
+													{{#if isRegistered}}
+														<div class="btn btn-danger btn-pill btn-lg uiActionRegisterNow" data-action="cancel" data-activityId="{{_id}}">Cancel Registration</div>
+													{{else}}
+														<div class="btn btn-danger btn-pill btn-lg uiActionRegisterNow" data-action="register" data-activityId="{{_id}}">Register Now!</div>
+													{{/if}}
+
+
+												{{/if}}
+
+
+											</center>
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card gedf-card mt-4">
+							<div class="card-body" style="padding:0px;">
+								<div class="card-body row">
+									<div class="col-sm-12">
+
+										<div class="card-body" >
+											<center>
+												<h2>Details</h2>
+											</center>
+											<div style="border:1px solid lightgrey; padding:8px; border-radius:4px; margin-bottom:4px;">
+												{{{description}}}
+											</div>
+										</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+				<!-- Activity -->
+
+				<div class="row mt-4">
+					<div class="col-sm-12 col-md-12">
+
+
+
+						<div class="card-deck">
+							<div class="card mb-4">
+
+								<h2 class="text-center m-1">{{address}}</h2>
+
+								<center>
+									<a target="_blank" href="https://www.google.ca/maps/dir/?api=1&destination={{address}}" class="btn btn-primary btn-sm mb-2">
+										<i class="fa fa-map-o" aria-hidden="true"></i> Open in Google Maps
+									</a>
+								</center>
+
+								<div id="map" style="height:700px; width:100%;"></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+				<!-- Doers List -->
+				<div class="row mt-4">
+					<div class="col-sm-12 col-md-12">
+
+
+						<div class="card-deck">
+							<div class="card mb-4">
+
+									<h2 class="text-center m-1">YouDoers Going</h2>
+
+									<div class="row">
+										<div class="comments-list" style="width:100%;">
+											{{#each doerGoing}}
+
+												<div class="col-sm-2" style="float:left;">
+
+													<!-- MOBILE -->
+													<a href="/social/@{{username}}"  class="d-block d-md-none">
+
+														<center>
+															<img src="//{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg" class="doerProfileImage img-fluid"  style="min-height:120px; position:relative;"/>
+															<div class="text-black pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;" >{{nameFirst}} {{nameLast}}</div>
+														</center>
+
+													</a>
+													<!-- MOBILE -->
+
+													<!-- DESKTOP -->
+													<a href="/social/@{{username}}" class="d-none d-md-block">
+
+														<center>
+															<div class="comment-avatar" style="width:145px; height:145px">
+																<img src="//{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg" class="doerProfileImage" />
+															</div>
+															<br style="clear:both;" />
+															<div class="text-black pt-4 pl-2 pr-2">{{nameFirst}} {{nameLast}}</div>
+														</center>
+
+													</a>
+													<!-- DESKTOP -->
+
+												</div>
+
+											{{/each}}
+										</div>
+									</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- Doers List -->
+
+
+
+	{{/each}}
+
+</template>

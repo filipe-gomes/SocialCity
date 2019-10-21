@@ -1,0 +1,157 @@
+<template name="messages">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+
+	<!-- Try DOER Now -->
+	<div class="blog section section-invert customMenuPadding">
+		<div class="container">	
+					
+					
+					<div class="row">
+					
+					
+						<!-- FRIENDS AND CONTACTS -->
+						<div class="col-12 col-sm-4 messagesContacts">
+						
+							<div class="card" style="overflow-y:scroll; overflow-x:hidden; height:85vh;">
+								<div class="card-body">
+					
+									{{#each friends}}
+										
+											<div class="row uiActionMessagesShowConversation" data-friendId="{{toOwnerId}}" style="border-bottom:1px solid #c3c3c3; height:70px;">
+												
+												<div class="col-3 col-md-3">
+													<center>
+														<a href="#">	
+															<div class="doerProfileImage mt-1 mb-1" style="width:60px; height:60px; border:2px solid black; background-image: url('//{{cdnPath}}/users/{{toOwnerId}}/profile/large-{{toPhoto}}.jpg'); background-size:cover;"></div>
+														</a>
+													</center>
+												</div>
+												
+												<div class="col-9 col-md-9">
+													<p style="font-weight:bold; margin:0px;">{{toNameFirst}} {{toNameLast}}</p>
+												</div>
+												
+											</div>
+											
+									{{/each}}
+							
+								</div>
+							</div>
+
+						</div>
+						<!-- FRIENDS AND CONTACTS -->
+						
+						
+						
+						<!-- CHAT CONVERSATIONS -->
+						{{#with theConversation}}
+						
+							<div class="col-12 col-sm-8 messagesConversation">
+								<div class="card" style="height:85vh;">
+									<div class="card-body">
+								
+										<div class="row">
+										
+											<div class="col-2">
+												<div class="d-block d-sm-none">
+													<div class="btn btn-sm btn-primary uiActionMessagesHideConversation">
+														<i class="far fa-times-circle" style="font-size:22px;"></i>
+													</div>
+												</div>
+											</div>
+										
+											<div class="col-8">
+												<center>
+													<h3>{{toNameFirst}} {{toNameLast}}</h3>
+												</center>
+											</div>
+											
+											<div class="col-2">
+												<div class="btn btn-sm btn-primary uiActionMessagesConfigureConversation float-right">
+													<i class="fas fa-cog" style="font-size:22px;"></i>
+												</div>
+											</div>
+											
+										</div>
+										
+										<div class="messagesContainer">
+										
+											{{#each messages}}
+												<!-- THEM -->
+												<div class="row">
+												
+													<div class="col-3 col-md-1">
+													
+														<span style="height:100px;">
+															<div class="doerProfileImage mt-4" style="float:left; width:60px; height:60px; border:2px solid black; background-image: url('//{{cdnPath}}/users/{{ownerId}}/profile/large-{{ownerPhoto}}.jpg'); background-size:cover;"></div>
+														</span>
+														
+													</div>
+													
+													<div class="col-9 col-md-11 noPaddingLeftMobile">
+														
+														<div class="bubble-them mt-4 p-2" style="display:inline-block; float:left; ">
+															{{message}}
+														</div>
+														<br />
+														<div style="font-size:10px; display:inline-block; float:left; clear: left;">
+															{{timeAgo timeCreated}}
+														</div>
+														
+													</div>
+													
+												</div>
+												<!-- THEM -->
+											{{/each}}
+										
+										</div>
+										
+										<form class="submitTheMessageToChat">
+											<input style="margin-top:8px;" class="form-control submitChatMessage" name="submitChatMessage" placeholder="Your message..." autocomplete="off"  />
+										</form>
+										
+														
+									</div>
+								
+								</div>
+							</div>
+							
+						{{/with}}
+						<!-- CHAT CONVERSATIONS -->
+						
+						
+						
+					</div>
+		
+			
+		</div>
+	</div>
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

@@ -1,0 +1,82 @@
+<!--
+#
+# TEMPLATE: applicationLayout
+#
+# -->
+<template name="applicationLayout">
+
+	{{> navigation}}
+
+
+	<!-- CONTAINER -->
+	<div class="customMenuPadding section">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-12 col-md-9 mx-auto">
+
+					{{> yield "content"}}
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	{{> footer}}
+
+
+</template>
+
+
+<template name="applicationLayoutEmpty">
+
+	{{> yield "content"}}
+
+</template>
+
+<!--
+#
+# TEMPLATE: 404
+#
+# -->
+<template name="not_found">
+
+  <div class="back-link">
+    <a href="/" class="btn btn-primary">Back to Dashboard</a>
+  </div>
+  <div class="error-container">
+    <i class="pe-7s-way text-success big-icon"></i>
+    <h1>404</h1>
+    <strong>Page Not Found</strong>
+    <p>
+      Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+
+    </p>
+    <a href="index.html" class="btn btn-xs btn-success">Go back to dashboard</a>
+  </div>
+
+  {{> footer}}
+
+</template>
+
+
+<!--
+#
+# TEMPLATE: PRELOADER
+#
+# -->
+<template name="preloader">
+
+  <div class="splash">
+    <div class="color-line"></div>
+    <div class="splash-title">
+      <center>
+        <img class="landing-logo" src="/images/faver-logo-large.png" width="100%" />
+        <div class="loader">Loading...</div>
+      </center>
+    </div>
+  </div>
+
+</template>

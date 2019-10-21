@@ -1,2 +1,3 @@
-# SocialCity
-The paradigm shift we need in social networking
+# YouDoer
+
+This is our private GitHub repository of the codebase for YouDoer.com

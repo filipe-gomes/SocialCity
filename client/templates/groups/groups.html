@@ -1,0 +1,125 @@
+<template name="groups">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+
+	<!-- Try DOER Now -->
+	<div class="customMenuPadding section">
+		<div class="container">
+		
+			<div class="row" >
+				<div class="col-12 col-md-9 mx-auto">
+
+					<div class="row">
+						<div class="col-sm-12">
+
+							<center>
+
+								<a href="/create/group" class="btn btn-success btn-lg ">
+									<i class="fas fa-plus-circle"></i> Create A Group
+								</a>
+
+							</center>
+
+						</div>
+					</div>
+
+
+					{{#each groups}}
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+
+								<div class="card-deck">
+									<div class="card mb-4">
+
+										<div class="row">
+											<div class="col-sm-12 col-md-5">
+
+												<!-- MOBILE -->
+												<span class="d-block d-md-none">
+													<a href="/group/{{url}}">
+														<img src="//{{cdnPath}}/groups/{{_id}}/cover/large-{{photoCover}}.jpg" class="img-fluid" style="max-height:400px;"/>
+													</a>
+												</span>
+
+												<!-- DESKTOP -->
+												<span class="d-none d-md-block" style="height:100%; width:100%">
+													<a href="/group/{{url}}" class="card-img-top" style="width:100%; height:100%; background:url('//{{cdnPath}}/groups/{{_id}}/cover/large-{{photoCover}}.jpg');  background-size: cover; background-position: center; display:block;"></a>
+												</span>
+
+											</div>
+
+											<div class="col-sm-12 col-md-7">
+												<div class="card-body">
+													<div class="card-title">
+														<center>
+															<span class="text-danger">
+																<strong>
+																	<h2>{{title}}</h2>
+																</strong>
+															</span>
+															<p>{{description}}</p>
+															<hr />
+															<p>{{groupMembersCount}} Doers</p>
+															<p>{{category}} group</p>
+															<hr />
+															{{#with locations}}
+																{{#if location}}
+																	{{#each location}}
+																		<p>{{street_number}} {{route}}</p>
+																		<p>{{locality}}, {{administrative_area_level_1}}</p>
+																		<p>{{postal_code}}</p>
+																		<p>{{country}}</p>
+																	{{/each}}
+																{{/if}}
+															{{/with}}
+														</center>
+													</div>
+													<center>
+														<a href="/group/{{url}}" class="btn btn-outline-danger btn-pill" >Details</a>
+													</center>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+					{{/each}}
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

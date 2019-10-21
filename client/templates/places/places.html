@@ -1,0 +1,48 @@
+<template name="places">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+	<div class="customMenuPadding section">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-12">
+				
+					<center>
+						<img src="//{{cdnPath}}/default/HOLDER_places.png" style="width:100%;" />
+					</center>
+						
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

@@ -1,0 +1,48 @@
+
+@media screen and (min-width: 1px) {
+
+
+	#searchModal input[type="search"] {
+
+
+	    border: 1px solid black;
+		border-radius:8px;
+		padding:4px;
+		width:100%;
+
+	}
+
+	#searchModal .form{
+
+	}
+
+	.searchBar{
+
+	}
+
+	.searchBarAction{
+
+	}
+
+	.searchBarGroup .active{
+
+	}
+
+
+}
+
+@media screen and (min-width: 768px) {
+
+
+
+	#searchModal input[type="search"] {
+
+		width:50%;
+
+	}
+
+	.searchBar{
+
+	}
+
+}

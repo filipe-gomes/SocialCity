@@ -1,0 +1,26 @@
+<template name="settings">
+
+		<h1>Settings</h1>
+
+		<a href="/logout" class="btn btn-danger">Logout</a>
+
+		<hr />
+
+		<div>
+			<h1>Pick your chat bubble color!</h1>
+			<div class="setChatBubbleColor" data-color="green" style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'green'}}red{{else}}black{{/if}}; background:#adffd2;"></div>
+			<div class="setChatBubbleColor" data-color="pink"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'pink'}}red{{else}}black{{/if}}; background:#e9b1ff;"></div>
+			<div class="setChatBubbleColor" data-color="blue"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'blue'}}red{{else}}black{{/if}}; background:#b9ddff;"></div>
+			<div class="setChatBubbleColor" data-color="yellow"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'yellow'}}red{{else}}black{{/if}}; background:#fff1aa;"></div>
+			<div class="setChatBubbleColor" data-color="orange"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'orange'}}red{{else}}black{{/if}}; background:#ffd8b0;"></div>
+			<div class="setChatBubbleColor" data-color="red"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'red'}}red{{else}}black{{/if}}; background:#ffc5c0;"></div>
+			<div class="setChatBubbleColor" data-color="grey"  style="width:50px; height:50px; float:left; margin:1px; border:1px solid {{#if isSelectedColor 'grey'}}red{{else}}black{{/if}}; background:##E8E8EB;"></div>
+
+		</div>
+
+		<br style="clear:both;"/>
+
+
+
+
+</template>

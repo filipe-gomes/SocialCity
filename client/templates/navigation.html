@@ -1,0 +1,396 @@
+<template name="navigation">
+
+	<div class="uploaderPercent" style="display:block; width:0%;">
+
+		<div class="progress" style="height:40px;">
+		  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 100%; height:40px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content">
+
+	            <div class="modal-body" style="padding:2rem;">
+
+	                <center>
+
+	                    <form class="searchBar">
+
+							<h3>Search For People</h3>
+
+	                        <input class="searchBarInput" name="searchBarInput" required="true" type="search" value="" placeholder="Name..." autocomplete="off" autofocus />
+
+							<hr />
+
+							<button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-success float-right"><i class="fas fa-search"></i> Search</button>
+
+	                    </form>
+
+	                </center>
+
+	            </div>
+
+
+	        </div>
+	    </div>
+	</div>
+
+
+	<!-- MOBILE -->
+	<span class="d-block d-md-none">
+		<div style="position:fixed; z-index:1000; top:0px; height:45px; background:white; width:100%; padding:4px; color:red; border-bottom:1px solid red;">
+
+
+			{{#if currentUser}}
+				{{#each myUserMeta}}
+
+					<a href="/v/social">
+						<img src="//{{cdnPath}}/default/logoApp.png" class="img-responsive" width="20px" style="float:left; margin-right:2%; margin-top:9px;"  />
+					</a>
+
+					<button class="btn btn-primary btn-sm " style="float:left;  margin-top:4px; margin-right:4px;"  data-toggle="modal" data-target="#searchModal">
+						<i class="fas fa-search"></i> Search
+					</button>
+
+					<a class="" href="/settings">
+						<div class="doerProfileImage" style="background-image: url('//{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); position:relative; border:2px solid black; margin-top:2px; float:right; width:35px; height:35px;"></div>
+					</a>
+
+					<a href="#" class="btn btn-danger btn-sm" style="display:block; float:right;  margin-top:4px; margin-right:4px;" data-toggle="modal" data-target="#notificationModal">
+						<i class="fas fa-bell"></i> {{notificationsCountSocial}}
+					</a>
+
+					<!--
+					<a href="/messages" class="btn btn-sm btn-secondary" style="float:right; margin-top:4px; margin-right:4px;">
+						<i class="fas fa-comments"></i> 0
+					</a>
+
+					
+					<a href="/pay/@{{username}}" class="btn btn-success btn-sm" style="float:right; margin-top:4px; margin-right:4px;">
+						$ 0
+					</a>
+					-->
+
+				{{/each}}
+			{{else}}
+
+				<a href="/">
+					<img src="//{{cdnPath}}/default/logoApp.png" class="img-responsive" width="20px" style="float:left; margin-right:2%; margin-top:9px;"  />
+				</a>
+
+				<button class="btn btn-primary btn-sm" style="float:left;  margin-top:4px; margin-right:4px;"  data-toggle="modal" data-target="#searchModal">
+					<i class="fas fa-search"></i> Search
+				</button>
+
+				<a class="" href="/login">
+					<img src="//{{cdnPath}}/default/userGuest.png" class="image-responsive" height="35px"  style="float:right;" />
+				</a>
+
+				<a href="/login" class="btn btn-primary btn-sm" style="display:block; float:right;  margin-top:4px; margin-right:4px;" data-toggle="modal" data-target="#notificationModal">
+					<i class="fas fa-bell"></i> 0
+				</a>
+
+				<!--
+				<a href="/login" class="btn btn-sm btn-secondary" style="float:right; margin-top:4px; margin-right:4px;">
+					<i class="fas fa-comments"></i> 0
+				</a>
+
+				<a href="/login" class="btn btn-success btn-sm" style="float:right; margin-top:4px; margin-right:4px;">
+					$ 0
+				</a>
+				-->
+
+			{{/if}}
+
+
+
+		</div>
+	</span>
+
+
+
+
+
+
+	<!-- DESKTOP -->
+	<span class="" >
+		<div style="position:fixed; z-index:1000; top:0px; height:55px; background:white; width:100%; padding:0px; color:red; border-bottom:1px solid red;">
+
+			<div style=" max-width: 1140px; margin:0 auto;">
+
+				{{#if currentUser}}
+					{{#each myUserMeta}}
+
+						<a href="/v/social">
+							<img src="//{{cdnPath}}/default/logoApp.png" class="img-responsive" height="40px" style="float:left; margin-right:2%; margin-top:7px;"  />
+						</a>
+
+						<button class="btn btn-primary" style="float:left; margin-top:10px; margin-right:4px;" data-toggle="modal" data-target="#searchModal">
+							<i class="fas fa-search"></i> Search
+						</button>
+
+						<a class="" href="/settings">
+							<div class="doerProfileImage" style="background-image: url('//{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); position:relative; border:2px solid black; margin-top:2px; float:right; width:50px; height:50px;"></div>
+						</a>
+
+
+						<a href="#" class="btn btn-danger" style="display:block; float:right;  margin-top:10px; margin-right:4px;" data-toggle="modal" data-target="#notificationModal">
+							<i class="fas fa-bell"></i> {{notificationsCountSocial}}
+						</a>
+
+						<!--
+						<a href="/messages" class="btn btn-secondary" style="float:right; margin-top:10px; margin-right:4px;">
+							<i class="fas fa-comments"></i> {{notificationsCountMessages}}
+						</a>
+
+						<a href="/pay/@{{username}}" class="btn btn-success" style="float:right; margin-top:10px; margin-right:4px;">
+							$ {{notificationsCountPayment}}
+						</a>
+						-->
+
+					{{/each}}
+				{{else}}
+
+					<a href="/">
+						<img src="//{{cdnPath}}/default/logoApp.png" class="img-responsive" height="42px" style="float:left; margin-top:10px; "  />
+					</a>
+
+					<button class="btn btn-primary " style="float:left; margin-top:10px; margin-right:4px;"  data-toggle="modal" data-target="#searchModal">
+						<i class="fas fa-search"></i> Search
+					</button>
+
+					<a class="" href="/login">
+						<img src="//{{cdnPath}}/default/userGuest.png" class="image-responsive" height="50px"  style="float:right;" />
+					</a>
+
+					<a href="#" class="btn btn-primary" style="display:block; float:right;  margin-top:10px; margin-right:4px;" data-toggle="modal" data-target="#notificationModal">
+						<i class="fas fa-bell"></i> 0
+					</a>
+
+					<!--
+					<a href="/#" class="btn btn-secondary" style="float:right; margin-top:10px; margin-right:4px;">
+						<i class="fas fa-comments"></i> 0
+					</a>
+
+					<a href="#" class="btn btn-success" style="float:right; margin-top:10px; margin-right:4px;">
+						$ 0
+					</a>
+					-->
+
+				{{/if}}
+
+
+			</div>
+
+
+		</div>
+	</span>
+	<!-- FLOATING BOTTOM NAVIGATION -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- DESKTOP -->
+	<div class="mainInterfaceMenu">
+		<center>
+
+			<div class="btn-group">
+
+				<a href="/v/social" class="mainNavSocial btn btn-lg btn-outline-danger">
+					<i class="far fa-smile" aria-hidden="true"></i>
+					<br /><span>Social</span>
+				</a>
+
+				<a href="#" class="mainNavBrowse btn btn-lg btn-outline-danger sc-disabled">
+					<i class="far fa-comments"></i>
+					<br /><span>Discuss</span>
+				</a>
+
+				<a href="/p" class="mainNavActivities btn btn-lg btn-outline-danger">
+					<i class="fas fa-users" aria-hidden="true"></i>
+					<br /><span>People</span>
+				</a>
+
+				
+				<a href="#" class="mainNavPlaces btn btn-lg btn-outline-danger sc-disabled">
+					<i class="fas fa-walking" aria-hidden="true"></i>
+					<br /><span>Activities</span>
+				</a>
+
+				<a href="#t" class="mainNavMarket btn btn-lg btn-outline-danger sc-disabled">
+					<i class="fas fa-store" aria-hidden="true"></i>
+					<br /><span>Market</span>
+				</a>
+
+				<a href="#" class="mainNavJobs btn btn-lg btn-outline-danger sc-disabled">
+					<i class="fa fa-briefcase" aria-hidden="true"></i>
+					<br /><span>Work</span>
+				</a>
+
+				<a href="#" class="mainNavRides btn btn-lg btn-outline-danger sc-disabled">
+					<i class="fa fa-car" aria-hidden="true"></i>
+					<br /><span>Rides</span>
+				</a>
+
+				<a href="#" class="mainNavRides btn btn-lg btn-outline-danger sc-disabled">
+					<i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+					<br /><span>Places</span>
+				</a>
+
+			</div>
+
+		</center>
+
+	</div>
+
+
+
+
+
+
+
+	<!-- NOTIFICATIONS -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModal" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="notificationModal">{{theNotificationCount}} Notifications</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body" style="padding:2rem;">
+
+
+			{{#each myNotifications}}
+
+				<a href="/post/{{postId}}" class="row alert notificationSocialPost {{theNotificationStatusAlert}}">
+
+					<a href="/@{{toUsername}}" style="float:left;">
+						<div class="doerProfileImage" style="background-image: url('//{{cdnPath}}/users/{{toOwnerId}}/profile/large-{{toPhoto}}.jpg'); position:relative; border:2px solid black; margin-top:2px; width:100px; height:100px;"></div>
+					</a>
+
+					<div style="float:left; padding-left:10px;">
+						{{#if notificationType "general"}}
+							<p><strong><a href="/s/@{{ownerUsername}}">{{ownerNameFirst}} {{ownerNameLast}}</a></strong> {{message}} </p>
+						{{/if}}
+
+						{{#if notificationType "follow"}}
+							<p>Now following <strong><a href="/following/@{{toUsername}}">{{toNameFirst}} {{toNameLast}}</a></strong> </p>
+						{{/if}}
+
+						{{#if notificationType "friend"}}
+
+							{{#if notificationDirection "meToThem"}}
+								<p><strong>Friend request sent to <a href="/s/@{{toUsername}}">{{toNameFirst}} {{toNameLast}}</a></strong></p>
+							{{/if}}
+
+							{{#if notificationDirection "themToMe"}}
+								<p><strong><a href="/s/@{{toUsername}}">{{toNameFirst}} {{toNameLast}}</a></strong> would like to be your friend</p>
+
+								{{#if notificationStatus "request"}}
+									<p>
+										<div href="#" class="btn btn-success uiActionRequestFriendOrFollow" data-action="friendAccept" data-userId="{{toOwnerId}}">
+											<i class="far fa-check-circle"></i> Accept
+										</div>
+
+										<!--
+										<a href="#" class="btn btn-danger uiActionRequestFriendOrFollow" data-action="friendDecline" data-userId="{{toOwnerId}}">
+											<i class="far fa-times-circle"></i> Decline
+										</a>
+										-->
+
+									</p>
+								{{/if}}
+
+							{{/if}}
+
+
+						{{/if}}
+
+						{{#if notificationType "reply"}}
+							<p><strong><a href="/s/@{{toUsername}}">{{toNameFirst}} {{toNameLast}}</a></strong> replied to your post: <strong><br />{{message}}</strong> </p>
+						{{/if}}
+
+						<p><i class="fa fa-clock"></i> {{timeAgo timeCreated}}</p>
+
+					</div>
+
+				</a>
+			{{/each}}
+
+
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<script>
+		window.notificationModalCurrentlyOpen = false;
+		window.notificationModalWasOpened = false;
+		setInterval(function(){
+
+			if($("#notificationModal").is(":visible")){
+				window.notificationModalCurrentlyOpen = true;
+				Meteor.call("notificationsSetZero");
+			}
+
+			if( window.notificationModalWasOpened == false && window.notificationModalCurrentlyOpen == true){
+
+				if($("#notificationModal").is(":hidden")){
+					Meteor.call("notificationsMarkRead");
+					window.notificationModalCurrentlyOpen = false;
+					window.notificationModalWasOpened = false;
+				}
+
+			}
+
+		},250);
+
+	</script>
+	<!-- NOTIFICATIONS -->
+
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+</template>

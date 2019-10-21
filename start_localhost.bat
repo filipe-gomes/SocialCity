@@ -1,0 +1,1 @@
+meteor --settings settings_localhost.json

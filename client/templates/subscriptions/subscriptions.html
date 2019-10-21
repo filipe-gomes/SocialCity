@@ -1,0 +1,45 @@
+<template name="subscriptions">
+
+
+
+	<!-- Try DOER Now -->
+	<div class="customMenuPadding section">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-sm-12">
+
+					<div class="card gedf-card">
+						<div class="card-body">
+
+
+							<h1>Subscriptions</h1>
+							<hr />
+
+							{{#each subscriptions}}
+								<div class="row mb-2">
+									<div class="col-12">
+
+										<a href="/browse/{{this}}" class="btn btn-primary">{{this}}</a>
+										<div class="btn btn-outline-danger uiActionUnfollowCheck" data-topic="{{this}}">X</div>
+
+									</div>
+								</div>
+							{{/each}}
+
+
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+</template>

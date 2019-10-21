@@ -1,0 +1,1168 @@
+
+
+<template name="wall">
+
+	<!-- NEW POST MODAL -->
+	<div class="modal fade" id="modalPost" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	  <div class="modal-dialog modal-lg " role="document">
+		<div class="modal-content">
+
+
+		  <div class="modal-body mb-4" style="padding:2rem;">
+
+			  	<div class="createTopicControls" style="display:none;">
+
+					<div class="form-group">
+
+						Topic Title:
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text bg-white" style="border:none;"><i class="fas fa-hashtag" style="font-size:38px; padding-right:6px; color:red;"></i></span>
+							</div>
+							<input type="text" class="form-control uiTopicTitle"/>
+						</div>
+
+						<p><i>
+							Topic title may use capital letters and represents an idea, searchable with a hashtag
+							<br /><span style="color:red;">#SomethingLikeThis #AnotherExample #CanNeverChange</span>
+						</i></p>
+
+					</div>
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input uiThePrivacy" name="uiThePrivacy" value="everyone" checked>For Everyone
+							<p><i>Anyone can view and submit</i></p>
+						</label>
+					</div>
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input uiThePrivacy" name="uiThePrivacy" value="follow">Follow Me
+							<p><i>Anyone can view, only approved users can submit</i></p>
+						</label>
+					</div>
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="radio" class="form-check-input uiThePrivacy" name="uiThePrivacy" value="private">Private
+							<p><i>Only pre-approved users can view or submit</i></p>
+						</label>
+					</div>
+
+					<hr />
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input uiTopic18Only" name="uiTopic18Only" value="">18+ Adult Topic Only
+							<p><i>Users here must be verified as being 18+ years of age or older to view or submit</i></p>
+						</label>
+					</div>
+
+					<div class="form-check">
+						<label class="form-check-label">
+							<input type="checkbox" class="form-check-input uiTopicGraphic" name="uiTopicGraphic" value="">Graphic or Distrubing Topic
+							<p><i>This topic contains graphic content, users will be prompted a disclaimer before entering</i></p>
+						</label>
+					</div>
+
+				</div>
+
+
+				{{#if checkPage 't'}}
+					<div class="browseControls" >
+						<div class="form-group">
+							Title: <input type="text" class="form-control uiCreatePostTitle"/>
+						</div>
+
+						<div class="form-group">
+							Topic:
+							<select class="form-control uiCreatePostTopic">
+								<option value=''>Select</option>
+								{{#each subscriptions}}
+									<option value='{{this}}'>{{this}}</option>
+								{{/each}}
+							</select>
+						</div>
+
+					</div>
+				{{/if}}
+
+				<div class="form-group">
+					<textarea class="form-control summernote" id="postMessage" rows="3" placeholder="What are you thinking?"></textarea>
+				</div>
+
+
+				<label class="uploaderLabel" for="test">
+					<i class="fas fa-cloud-download-alt"></i>
+					<div class="uploaderMessage">Create gallery by clicking or dropping files here!</div>
+					<input type="file" multiple class="uploaderGallery">
+				</label>
+
+
+				<div class="photoGallery">
+
+					<div class="row no-gutters mb-4">
+						{{#each galleryImageForTemp}}
+
+							{{#if checkExtension 'jpg'}}
+								<div class="col-4">
+									<a href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.jpg" data-gallery="#PhotoGallery-{{parentPostId}}">
+										<img class="galleryThumbnail"  src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.jpg" onerror="imageError(this);" style="width:100%;" />
+									</a>
+								</div>
+							{{/if}}
+
+							{{#if checkExtension 'mp4'}}
+								<div class="col-4">
+									<a
+										href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.mp4"
+										type="video/*"
+										title="video"
+										alt="video"
+										data-poster="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}_1.jpg"
+										data-sources='[{"href": "{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.mp4", "type": "video/mp4"}]'
+										data-gallery="#PhotoGallery-{{parentPostId}}"
+									>
+										<div class="galleryThumbnail" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}_1.jpg'); background-size:cover; background-position-x: 50%; background-position-y: 50%; width:100%; "></div>
+									</a>
+								</div>
+							{{/if}}
+
+						{{/each}}
+					</div>
+
+				</div>
+
+
+				<div class="btn-toolbar justify-content-between">
+
+					<div class="createTopicControls" >
+						<button type="submit" class="btn btn-primary submitPostButton" data-submitType="topic" data-mediaType="">
+							<i class="fas fa-folder-plus"></i> Create Topic!
+						</button>
+					</div>
+
+					<div class="browseControls" >
+						<button type="submit" class="btn btn-primary submitPostButton" data-submitType="friending" data-mediaType="posts">
+							<i class="fas fa-plus-circle"></i> Create Post!
+						</button>
+					</div>
+
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				</div>
+
+		  </div>
+
+		</div>
+	  </div>
+	</div>
+	<!-- NEW POST MODAL -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<!--  CHANGE SOCIAL PHOTOS  -->
+					{{#if checkPage 'social'}}
+						{{#if myProfile}}
+
+							<center>
+								<div class="btn btn-primary">
+									<input type="file" class="myPhotoUploader" data-type="profile" data-page="social" data-id="{{_id}}" />
+									<i class="fas fa-camera"></i> Change Photo
+								</div>
+
+								<div class="btn btn-primary">
+									<input type="file" class="myPhotoUploader" data-type="cover" data-page="social" data-id="{{_id}}" />
+									<i class="fas fa-image"></i> Change Cover
+								</div>
+
+
+							</center>
+
+						{{/if}}
+					{{/if}}
+
+					<!--  CHANGE BROWSE PHOTOS  -->
+					{{#if checkPage 'browseTopic'}}
+						{{#if myTopic}}
+
+							{{#with theTopic}}
+								<center>
+									<input id="uiActionUploadTopicCoverPhoto" class="myPhotoUploader" data-type="cover" data-page="topic"  data-id="{{_id}}" type="file" style="display:none;"/>
+									<div class="btn btn-primary" onClick="$('#uiActionUploadTopicCoverPhoto').trigger('click');"><i class="fas fa-image"></i> Change Cover</div>
+								</center>
+							{{/with}}
+
+						{{/if}}
+					{{/if}}
+
+					<!--  CHANGE GROUP PHOTOS  -->
+					{{#if checkPage 'group'}}
+						{{#if myGroup}}
+
+							{{#with theGroup}}
+								<center>
+									<input id="uiActionUploadGroupProfilePhoto" class="myPhotoUploader" data-type="profile" data-page="group" data-id="{{_id}}" type="file" style="display:none;"/>
+									<div class="btn btn-primary" onClick="$('#uiActionUploadGroupProfilePhoto').trigger('click');"><i class="fas fa-camera"></i> Change Photo</div>
+
+									<input id="uiActionUploadGroupCoverPhoto" class="myPhotoUploader" data-type="cover" data-page="group"  data-id="{{_id}}" type="file" style="display:none;"/>
+									<div class="btn btn-primary" onClick="$('#uiActionUploadGroupCoverPhoto').trigger('click');"><i class="fas fa-image"></i> Change Cover</div>
+								</center>
+							{{/with}}
+
+						{{/if}}
+					{{/if}}
+
+
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+					<!--  HEADER -->
+					{{#with theHeaderObject}}
+
+						<!-- INFO HEADER -->
+						<div class="card gedf-card">
+							<div class="card-body" style="padding:0px;">
+
+								<!-- MOBILE -->
+								<span class="d-block d-md-none">
+
+									<!-- COVER -->
+									{{#if checkPage 'social'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:200px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									{{#if checkPage 'browse'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:200px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									{{#if checkPage 'group'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/groups/{{_id}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:200px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									<!-- COVER -->
+
+									<!-- COVER GALLERY -->
+									{{#each photosCover}}
+										{{#if checkPage 'social'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+										{{#if checkPage 'browse'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+										{{#if checkPage 'group'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+									{{/each}}
+									<!-- COVER GALLERY -->
+
+
+									<div style="position:absolute; width:100%; bottom:0px; height:60px; background:rgba(0,0,0,0.4);">
+
+										<!-- PROFILE -->
+										<a class="doerProfileImage" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); float:left; background-size:cover;" onClick="$('.openPhotosProfileGallery:first').trigger('click');"></a>
+										<!-- PROFILE -->
+
+										<!-- PROFILE GALLERY -->
+										{{#each photosProfile}}
+											<a class="openPhotosProfileGallery" style="float:left; display:none; " href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{fileId}}.jpg" data-gallery="">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{fileId}}.jpg" />
+											</a>
+										{{/each}}
+										<!-- PROFILE GALLERY -->
+
+										<div style="margin-left:120px;">
+											<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;" >{{nameFirst}} {{nameLast}}</div>
+											<div class="text-white pl-2 pr-2" style="font-size:10px; display:block; position:relative;  left:10px;"><i class="fa fa-star" aria-hidden="true"></i> {{stars}}</div>
+										</div>
+
+									</div>
+
+								</span>
+								<!-- MOBILE -->
+
+								<!-- DESKTOP -->
+								<span class="d-none d-md-block">
+
+									<!-- COVER -->
+									{{#if checkPage 'social' 'browse'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:500px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									{{#if checkPage 'browseTopic'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/topics/{{_id}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:500px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									{{#if checkPage 'group'}}
+										<a style="background-image: url('{{sslMode}}://{{cdnPath}}/groups/{{_id}}/cover/large-{{photoCover}}.jpg'); float:left; background-size:cover; width:100%; height:500px !important; " onClick="$('.openPhotosCoverGallery:first').trigger('click');"></a>
+									{{/if}}
+									<!-- COVER -->
+
+									<!-- COVER GALLERY -->
+									{{#each photosCover}}
+										{{#if checkPage 'social'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+										{{#if checkPage 'browse'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+										{{#if checkPage 'group'}}
+											<a class="openPhotosCoverGallery" style="float:left; display:none;" href="{{sslMode}}://{{cdnPath}}/groups/{{_id}}/cover/large-{{fileId}}.jpg" data-gallery="photosCover">
+												<img src="{{sslMode}}://{{cdnPath}}/groups/{{_id}}/cover/large-{{fileId}}.jpg" />
+											</a>
+										{{/if}}
+
+									{{/each}}
+									<!-- COVER GALLERY -->
+
+
+									{{#if checkPage 'social' }} <!--'browseTopic' -->
+
+										<div style="position:absolute; width:100%; bottom:0px; height:79px; background:rgba(0,0,0,0.4);">
+
+											{{#if checkPage 'social' }}
+												<!-- PROFILE -->
+												<a class="doerProfileImage" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); float:left; background-size:cover;" onClick="$('.openPhotosProfileGallery:first').trigger('click');"></a>
+												<!-- PROFILE -->
+
+												<!-- PROFILE GALLERY -->
+												{{#each photosProfile}}
+													<a class="openPhotosProfileGallery" style="float:left; display:none; " href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{fileId}}.jpg" data-gallery="photosProfile">
+														<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{fileId}}.jpg" />
+													</a>
+												{{/each}}
+												<!-- PROFILE GALLERY -->
+
+												<div style="margin-left:230px;">
+													<span class="text-white pt-4 pl-2 pr-2">{{nameFirst}} {{nameLast}}</span>
+													<br />
+													<span class="text-white pt-4 pl-2 pr-2"><i class="fa fa-star" aria-hidden="true"></i> {{stars}}</span>
+												</div>
+											{{/if}}
+
+											{{#if checkPage 'browseTopic' }}
+												<!-- Todo? -->
+											{{/if}}
+
+										</div>
+									{{/if}}
+
+								</span>
+								<!-- DESKTOP -->
+
+							</div>
+
+						</div>
+						<!-- INFO HEADER -->
+
+						<!-- ACTIONS -->
+						<div class="card" style="
+							-webkit-border-top-left-radius: 0px !important;
+							-webkit-border-top-right-radius: 0px !important;
+							-moz-border-radius-topleft: 0px !important;
+							-moz-border-radius-topright: 0px !important;
+							border-top-left-radius: 0px !important;
+							border-top-right-radius: 0px !important;
+							padding:6px !important;
+						">
+
+
+							<div class="row">
+								<div class="col-12">
+									<center class="btn-group-md">
+
+										{{#if checkPage 'social'}}
+
+											<div class="row">
+												<div class="col-12">
+
+													<!--
+													<a href="/messages" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-comment" style="font-size:16px;"></i>
+														<br />Message
+													</a>
+													-->
+													<a href="/friends/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-user-friends" style="font-size:16px;"></i>
+														<br />Friends
+													</a>
+
+
+													<!--
+													<a href="/pay/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-hand-holding-usd" style="font-size:16px;"></i>
+														<br />Pay
+													</a>
+
+													<a href="/resume/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-scroll" style="font-size:16px;"></i>
+														<br />Resume
+													</a>
+
+													<a href="/invite/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fas fa-share-square" aria-hidden="true" style="font-size:16px;"></i>
+														<br />Invite
+													</a>
+
+													<a href="/activities/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-child" style="font-size:16px;"></i>
+														<br />Activities
+													</a>
+													<a href="/groups/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-dot-circle" aria-hidden="true" style="font-size:16px;"></i>
+														<br />Groups
+													</a>
+													-->
+
+
+												</div>
+											</div>
+
+
+
+											<!--
+											<div class="row mt-2">
+												<div class="col-12">
+
+
+
+													<a href="/market/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-store" aria-hidden="true" style="font-size:16px;"></i>
+														<br />Market
+													</a>
+													<a href="/jobs/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-briefcase" aria-hidden="true" style="font-size:16px;"></i>
+														<br />Jobs
+													</a>
+
+
+												</div>
+											</div>
+											-->
+
+										{{/if}}
+
+
+
+
+										{{#if checkPage 't'}}
+
+											<div class="row">
+												<div class="col-12">
+
+													<a href="/subscriptions" class="btn btn-outline-primary btnUserActions">
+														<i class="fas fa-cogs" style="font-size:16px;"></i>
+														<br />Topics
+													</a>
+													<a href="#" class="btn btn-outline-primary btnUserActions uiActionCreateTopic scrollToPosts" data-toggle="modal" data-target="#modalPost">
+														<i class="fas fa-folder-plus" style="font-size:16px;"></i>
+														<br />Create
+													</a>
+
+
+												</div>
+											</div>
+
+										{{/if}}
+
+										{{#if checkPage 'browseMe'}}
+
+											<div class="row">
+												<div class="col-12">
+
+													<!--
+													<a href="/following/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-user-friends" style="font-size:16px;"></i>
+														<br />Following
+													</a>
+
+													<a href="/following/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-user" style="font-size:16px;"></i>
+														<br />Followers
+													</a>
+
+													<a href="/pay/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-hand-holding-usd" style="font-size:16px;"></i>
+														<br />Pay
+													</a>
+													-->
+
+												</div>
+											</div>
+
+										{{/if}}
+
+										{{#if checkPage 'browseTopic'}}
+
+											<div class="row">
+												<div class="col-12">
+
+													{{#if isTopicSubcriber}}
+														<a href="#" class="btn btn-outline-primary btnUserActions uiActionUnfollowCheck" data-topic="{{title}}" style="width:auto;" >
+															<i class="fa fa-bell-slash" style="font-size:16px;"></i>
+															<br />Unsubscribe
+														</a>
+													{{else}}
+														<a href="#" class="btn btn-outline-primary btnUserActions uiActionFollowCheck" data-topic="{{title}}">
+															<i class="fa fa-bell" style="font-size:16px;"></i>
+															<br />Subscribe
+														</a>
+													{{/if}}
+
+												</div>
+											</div>
+
+										{{/if}}
+
+										{{#if checkPage 'group'}}
+
+											<div class="row">
+												<div class="col-12">
+
+													<a href="/messages/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-comment" style="font-size:1px;"></i>
+														<br />Message
+													</a>
+													<!--
+													<a href="/pay/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-hand-holding-usd" style="font-size:12px;"></i>
+														<br />Pay
+													</a>
+													-->
+													<a href="/friends/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-user-plus" style="font-size:12px;"></i>
+														<br />Members
+													</a>
+													<a href="/activities/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-child" style="font-size:12px;"></i>
+														<br />Activities
+													</a>
+
+												</div>
+											</div>
+
+											<div class="row">
+												<div class="col-12">
+
+													<a href="/groups/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-dot-circle" aria-hidden="true" style="font-size:12px;"></i>
+														<br />Groups
+													</a>
+													<!--
+													<a href="/market/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-store" aria-hidden="true" style="font-size:12px;"></i>
+														<br />Market
+													</a>
+													<a href="/jobs/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-briefcase" aria-hidden="true" style="font-size:12px;"></i>
+														<br />Jobs
+													</a>
+													-->
+													<a href="/settings/{{username}}" class="btn btn-outline-primary btnUserActions">
+														<i class="fa fa-cog" aria-hidden="true" style="font-size:12px;"></i>
+														<br />Settings
+													</a>
+
+												</div>
+											</div>
+
+										{{/if}}
+
+
+									</center>
+								</div>
+							</div>
+
+
+							{{#if myProfile}}
+
+							{{else}}
+
+								<div class="row mt-4 mb-4">
+									<div class="col-12">
+										<center>
+
+											<!-- CONNECTION -->
+											<!-- CONNECTION -->
+											<!-- CONNECTION -->
+											{{#if friendStatusCheck "none"}}
+												<a href="#" class="btn btn-outline-primary uiActionRequestFriendOrFollow" data-action="friend" data-userId="{{meteorUserId}}">
+													<i class="fa fa-user-plus"></i> Become Friends!
+												</a>
+											{{/if}}
+											{{#if friendStatusCheck "request"}}
+												<a href="#" class="btn btn-outline-success uiActionRequestFriendOrFollow" data-action="friend" data-userId="{{meteorUserId}}">
+													<i class="fa fa-user-plus"></i> Friendship Pending
+												</a>
+											{{/if}}
+											{{#if friendStatusCheck "accepted"}}
+												<a href="#" class="btn btn-success uiActionRequestFriendOrFollow" data-action="friend" data-userId="{{meteorUserId}}">
+													<i class="fa fa-user-check"></i> Friends
+												</a>
+											{{/if}}
+											<!-- CONNECTION -->
+											<!-- CONNECTION -->
+											<!-- CONNECTION -->
+
+											<!-- FOLLOW STATUS -->
+											<!-- FOLLOW STATUS -->
+											<!-- FOLLOW STATUS -->
+											{{#if followCheck "none"}}
+												<a href="#" class="btn btn-outline-primary uiActionRequestFriendOrFollow" data-action="follow" data-userId="{{meteorUserId}}"><i class="fa fa-globe"></i> Follow</a>
+											{{/if}}
+											{{#if followCheck "accepted"}}
+												<a href="#" class="btn btn-success uiActionRequestFriendOrFollow" data-action="follow" data-userId="{{meteorUserId}}"><i class="fa fa-globe"></i> Following</a>
+											{{/if}}
+											<!-- FOLLOW STATUS -->
+											<!-- FOLLOW STATUS -->
+											<!-- FOLLOW STATUS -->
+
+										</center>
+									</div>
+								</div>
+
+							{{/if}}
+
+						</div>
+						<!-- ACTIONS -->
+						<!-- ACTIONS -->
+						<!-- ACTIONS -->
+
+					{{/with}}
+					<!--  HEADER -->
+
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+					<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+					<!--  NEW POST  -->
+					{{#if loggedIn}}
+						{{#if showCreatePostButton}}
+
+							{{#if checkPage 'social'}}
+								<center class="mt-4">
+									<button type="button" class="btn btn-lg btn-success uiActionCreateTempPost scrollToPosts" data-toggle="modal" data-target="#modalPost">
+										<i class="fas fa-plus-circle"></i> Create Social Post
+									</button>
+									<p><i>Social posts are for you, family and friends only.</i></p>
+								</center>
+							{{/if}}
+
+							{{#if checkPage 'browse'}}
+								<center class="mt-4">
+									<button type="button" class="btn btn-lg btn-success uiActionCreateTempPost scrollToPosts" data-toggle="modal" data-target="#modalPost">
+										<i class="fas fa-plus-circle"></i> Create Post
+									</button>
+
+									<p><i>Posts are seen by your followers and are public to the Internet.</i></p>
+
+
+								</center>
+							{{/if}}
+
+						{{/if}}
+					{{/if}}
+					<!--  NEW POST  -->
+
+
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+				<!-- XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX -->
+
+
+
+					<!-- POSTS -->
+					<!-- POSTS -->
+					<!-- POSTS -->
+
+
+						{{#each posts}}
+
+							{{#if checkPage 'browse' 'browseTopic'}}
+								{{#if theIndex '2' @index }}
+									<div class="comments-container" style="height:430px;">
+										<ul id="comments-list" class="comments-list">
+											<div class="comment-messageContainer-level-1">
+												<li>
+
+													<div class="youDoerAd"></div>
+
+												</li>
+
+											</div>
+										</ul>
+									</div>
+								{{/if}}
+
+								{{#if theIndex '6' @index }}
+									<div class="comments-container"  style="height:430px;">
+										<ul id="comments-list" class="comments-list" >
+											<div class="comment-messageContainer-level-1">
+
+												<div class="youDoerAd"></div>
+
+											</div>
+										</ul>
+									</div>
+								{{/if}}
+							{{/if}}
+
+							<div class="comments-container">
+
+								<ul id="comments-list" class="comments-list">
+
+									<div class="comment-messageContainer-level-1">
+
+										<li>
+
+
+											<!-- White Content Box -->
+											<div class="comment-content classExpander-{{_id}}" style="background:white; padding:16px; border-radius:20px;">
+
+
+												<!-- Avatar -->
+												<div class="comment-avatar" style="float:left;">
+													<a href="{{friendingOrFollowingPage}}/{{ownerUsername}}">
+														<div class="" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{ownerPhoto}}.jpg'); width:100%; height:100%; background-size:cover; background-position-x: 50%; background-position-y: 50%;"></div>
+													</a>
+												</div>
+
+												<div class="comment-name by-author"  style="float:left;">
+													<span style="float:left; padding-left:4px; font-size:22px; margin-top:20px;">
+														<a href="{{friendingOrFollowingPage}}/{{ownerUsername}}">{{ownerNameFirst}} {{ownerNameLast}}</a>
+													</span>
+													<br />
+													<span style="padding-left:4px;">
+														<i class="fa fa-clock"></i> {{timeAgo timeCreated}}
+													</span>
+
+												</div>
+
+												<!-- post controls -->
+												<div class="dropleft float-right ml-2">
+												  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												    <i class="fas fa-cog"></i>
+												  </button>
+												  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												  	{{#if postOwner}}
+												    	<a class="dropdown-item uiActionDeletPost" data-id="{{_id}}" href="#">Delete</a>
+													{{/if}}
+												    <a class="dropdown-item uiActionReportPost" data-id="{{_id}}" href="#">Report</a>
+												  </div>
+												</div>
+
+												{{#if checkPage 'browse' 'browsePost'}}
+													<span class="float-right">
+														in <a href="/browse/{{topic}}"><b>{{topic}}</b></a>
+													</span>
+												{{/if}}
+
+
+
+
+												<hr  style="clear:both; position:relative; top:8px;" />
+
+												<div class="contentMaxHeightWrapper">
+													{{#if checkPage 'browse' 'browsePost'}}
+														<h1>{{title}}</h1>
+													{{/if}}
+													{{{message}}}
+												</div>
+
+
+
+												{{#if checkPage 'social'}}
+
+													<hr  style="clear:both;" />
+
+													<p class="card-text" style="font-size:16px; opacity:0.7;">
+
+														<span class="starButton emotion" data-id="{{_id}}" data-theType="post">
+															{{#if isStarer}}
+																{{stars}} <i class="fas fa-star" style="font-color:white;"></i>
+															{{else}}
+																{{stars}} <i class="far fa-star"></i>
+															{{/if}}
+														</span>
+
+														<a href="#" class="card-link uiActionCreateReply"  data-id="{{_id}}" data-theType="post">
+															<i class="far fa-comment-alt"></i> <span style="color:black;"> Reply</span>
+														</a>
+
+													</p>
+												{{/if}}
+
+
+												<div class="photoGallery">
+
+													<div class="masonry-{{galleryImageSizer}}">
+														{{#each galleryImage}}
+
+																{{#if checkExtension 'jpg'}}
+																		<a href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.jpg" data-gallery="#PhotoGallery-{{parentPostId}}"  class="brick">
+																			<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.jpg" onerror="imageError(this);" />
+																		</a>
+																{{/if}}
+
+																{{#if checkExtension 'mp4'}}
+																	<div class="brick">
+																		<a
+																			href="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.mp4"
+																			type="video/*"
+																			title="video"
+																			alt="video"
+																			data-poster="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}_1.jpg"
+																			data-sources='[{"href": "{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}.mp4", "type": "video/mp4"}]'
+																			data-gallery="#PhotoGallery-{{parentPostId}}"
+																		>
+
+																			<div style="position:absolute; display:inline; top:46%; left:42%; font-size:132px;">
+																				<i class="far fa-play-circle"></i>
+																			</div>
+
+																			<img src="{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/gallery/{{parentPostId}}/large-{{fileId}}_1.jpg" onerror="imageError(this);"  />
+																		</a>
+																	</div>
+																{{/if}}
+
+														{{/each}}
+													</div>
+
+												</div>
+
+												{{#if checkPage 'browse'}}
+
+													<hr />
+
+													<center class="uiActionExpandContent mt-2"  style="display:none;">
+														<div class="btn btn-primary" data-thePostId="{{_id}}">
+															<i class="fas fa-arrow-down"></i> Read More
+														</div>
+													</center>
+
+													<span class="starButton emotion" data-id="{{_id}}" data-theType="post">
+														{{#if isStarer}}
+															{{stars}} <i class="fas fa-star" ></i>
+														{{else}}
+															{{stars}} <i class="far fa-star"></i>
+														{{/if}}
+													</span>
+
+													<a href="/browse/{{topic}}/{{titleUrl}}" class="card-link uiActionCreateReply"  data-id="{{_id}}" data-theType="post">
+														<i class="far fa-comments"></i> <span style="color:black;"> {{commentsCount}} Comments</span>
+													</a>
+
+													<!--
+													<div class="">
+														{{reports}} Report <i class="fas fa-flag"></i>
+													</div>
+													-->
+
+												{{/if}}
+
+											</div>
+											<!-- White Content Box -->
+
+
+											<!-- Social Comments -->
+											{{#if checkPage 'social' 'browsePost'}}
+
+												<center class="uiActionExpandContent mt-2"  style="display:none;">
+													<div class="btn btn-primary" data-thePostId="{{_id}}">
+														<i class="fas fa-arrow-down"></i> Read More
+													</div>
+												</center>
+
+												<ul class="comments-list reply-list">
+
+													<!-- THE REPLY -->
+													{{#each thisObjectComments}}
+														<ul>
+															<li>
+
+																{{> wallComment}}
+
+																<!-- THE REPLY -->
+																{{#each thisObjectComments}}
+																	<ul>
+																		<li>
+
+
+
+																			{{> wallComment}}
+
+																			<!-- THE REPLY -->
+																			{{#each thisObjectComments}}
+																				<ul>
+																					<li>
+
+
+
+																						{{> wallComment}}
+
+																						<!-- THE REPLY -->
+																						{{#each thisObjectComments}}
+																							<ul>
+																								<li>
+
+
+
+																									{{> wallComment}}
+
+																									<!-- THE REPLY -->
+																									{{#each thisObjectComments}}
+																										<ul>
+																											<li>
+
+
+
+																												{{> wallComment}}
+
+																												<!-- THE REPLY -->
+																												{{#each thisObjectComments}}
+																													<ul>
+																														<li>
+
+
+
+																															<!-- THE REPLY -->
+																															{{#each thisObjectComments}}
+																																<ul>
+																																	<li>
+
+
+
+																																		<!-- THE REPLY -->
+																																		{{#each thisObjectComments}}
+																																			<ul>
+																																				<li>
+
+
+
+																																					<!-- THE REPLY -->
+																																					{{#each thisObjectComments}}
+																																						<ul>
+																																							<li>
+
+
+
+																																								<!-- THE REPLY -->
+																																								{{#each thisObjectComments}}
+																																									<ul>
+																																										<li>
+
+
+
+																																											<!-- THE REPLY -->
+																																											{{#each thisObjectComments}}
+																																												<ul>
+																																													<li>
+
+
+
+																																														<!-- THE REPLY -->
+																																														{{#each thisObjectComments}}
+																																															<ul>
+																																																<li>
+
+
+
+																																																	{{> wallComment displayReplyButton}}
+
+																																																</li>
+																																															</ul>
+																																														{{/each}}
+
+																																													</li>
+																																												</ul>
+																																											{{/each}}
+
+																																										</li>
+																																									</ul>
+																																								{{/each}}
+
+																																							</li>
+																																						</ul>
+																																					{{/each}}
+
+																																				</li>
+																																			</ul>
+																																		{{/each}}
+
+																																	</li>
+																																</ul>
+																															{{/each}}
+
+
+																														</li>
+																													</ul>
+																												{{/each}}
+
+
+																											</li>
+																										</ul>
+																									{{/each}}
+
+
+																								</li>
+																							</ul>
+																						{{/each}}
+
+
+
+																					</li>
+																				</ul>
+																			{{/each}}
+
+
+																		</li>
+																	</ul>
+																{{/each}}
+
+
+															</li>
+														</ul>
+													{{/each}}
+
+													{{> wallCreateReply displayStyle='block' replyType='post' isDefaultReplyBox='isDefaultReplyBox'}}
+													<!-- THE REPLY -->
+
+												</ul>
+											{{/if}}
+											<!-- Social Comments -->
+
+										</li>
+
+									</div>
+
+									<br style="clear:both;" />
+
+								</ul>
+							</div>
+
+						{{/each}}
+						<!-- POSTS -->
+						<!-- POSTS -->
+						<!-- POSTS -->
+
+
+</template>
+
+
+
+
+<template name="wallComment">
+
+	<div class="row mb-3 messageRow messageRowColor-{{messageRowColor}}">
+
+		<div class="" style="float:left; width:100px; padding-right:0px; top:6px; left:8px; position:relative;">
+			<!-- Avatar -->
+			<div class="comment-avatar">
+				<a href="{{friendingOrFollowingPage}}/{{ownerUsername}}">
+					<div class="" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{ownerId}}/profile/large-{{ownerPhoto}}.jpg'); width:100%; height:100%; background-size:cover; background-position-x: 50%; background-position-y: 50%;"></div>
+				</a>
+			</div>
+		</div>
+
+		<div class="" style="display:block; position:relative; width:calc(100% - 100px); float:left; margin-left:0px; ">
+
+			<span class="comment-name by-author">
+				<a href="{{friendingOrFollowingPage}}/{{ownerUsername}}">{{ownerNameFirst}} {{ownerNameLast}}</a>
+				<i class="fa fa-clock"></i> {{timeAgo timeCreated}}
+			</span>
+
+			<div class="theMessageContainer" style="background:white; padding:14px; border-radius:32px; display:table;">
+				
+				{{{message}}}
+
+			</div>
+
+			<p class="card-text" style="font-size:16px;  opacity:0.7; margin-bottom:0px;">
+
+				<span class="starButton emotion" data-id="{{_id}}" data-theType="comments">
+					{{#if isStarerComment}}
+							{{stars}} <i class="fas fa-star" ></i>
+					{{else}}
+							{{stars}} <i class="far fa-star"></i>
+					{{/if}}
+				</span>
+
+				<span style="top:2px;">
+
+					<a href="#" class="card-link uiActionCreateReply"  data-id="{{postId}}" data-theType="comments" data-commentId="{{_id}}">
+						<i class="far fa-comment-alt"></i> <span style="color:black;"> Reply</span>
+					</a>
+
+				</span>
+
+			</p>
+
+		</div>
+	</div>
+
+	<ul>
+		<li>
+			{{> wallCreateReply displayStyle='none' replyType='comment' isDefaultReplyBox=''}}
+		</li>
+	</ul>
+
+
+</template>
+
+
+
+
+<template name="wallCreateReply">
+
+	<!-- REPLY BOX -->
+	<li class="comment-myReply {{isDefaultReplyBox}}" style="display:{{displayStyle}};">
+		<!-- Avatar -->
+		{{#each myUserMeta}}
+			<div class="comment-avatar">
+				<a href="{{friendingOrFollowingPage}}/{{userName}}">
+					<div class="" style="background-image: url('{{sslMode}}://{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); width:100%; height:100%; background-size:cover; background-position-x: 50%; background-position-y: 50%; opacity:0.3;"></div>
+				</a>
+			</div>
+		{{/each}}
+		<!-- Contenedor del Comentario -->
+		<div class="comment-box" style="margin-top:5px;">
+
+			<div class="comment-content-comment">
+				<form class="uiActionSubmitComment">
+					<input type="hidden" name="theParentId" value="{{../_id}}" />
+					<input type="hidden" name="theReplyType" value="{{replyType}}" />
+					<input style="margin-top:0px;" class="form-control submitYourComment"  name="submitComment" placeholder="Add your comment..." autocomplete="off"  />
+				</form>
+
+			</div>
+
+		</div>
+	</li>
+	<!-- REPLY BOX -->
+
+</template>

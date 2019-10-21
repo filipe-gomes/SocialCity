@@ -1,0 +1,103 @@
+
+@media screen and (min-width: 1px) {
+
+	.uploaderLabel i {
+		font-size: 40px;
+		padding-bottom: 50px;
+		position: absolute;
+		left: 42%;
+		top: 5px;
+		z-index: 1;
+	}
+
+	.uploaderLabel input[type="file"] {
+		position:absolute;
+		width:100%;
+		bottom:0;
+		top:0;
+	}
+
+	input[type="file"] {
+		position: absolute;
+		opacity: 0;
+		width: auto;
+	}
+
+	.uploaderMessage {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #ccc;
+		border: 3px dotted #bebebe;
+		border-radius: 10px;
+		text-align:center;
+	}
+
+	.uploaderLabel {
+		display: inline-block;
+		position: relative;
+		height: 150px;
+		width: 100%;
+	}
+
+	.dragover {
+		background-color: #aaa;
+	}
+
+}
+
+@media screen and (min-width: 768px) {
+
+	.uploaderLabel i {
+		font-size: 90px;
+		padding-bottom: 50px;
+		position: absolute;
+		left: 22%;
+		top: 25px;
+		z-index: 1;
+	}
+
+	.uploaderLabel input[type="file"] {
+		position:absolute;
+		width:100%;
+		bottom:0;
+		top:0;
+	}
+
+	input[type="file"] {
+		position: absolute;
+		opacity: 0;
+		width: auto;
+	}
+
+	.uploaderMessage {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #ccc;
+		border: 3px dotted #bebebe;
+		border-radius: 10px;
+	}
+
+	.uploaderLabel {
+		display: inline-block;
+		position: relative;
+		height: 150px;
+		width: 100%;
+	}
+
+	.dragover {
+		background-color: #aaa;
+	}
+
+}

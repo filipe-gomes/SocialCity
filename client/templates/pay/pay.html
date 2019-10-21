@@ -1,0 +1,89 @@
+<template name="pay">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+	<!-- Try DOER Now -->
+	<div class="customMenuPadding section">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-sm-12">
+				
+					
+					<div class="card">
+						<div class="card-body">
+							
+							
+							<div class="row">
+							
+								<div class="col-sm-12">
+									<center>
+									
+										{{#with theUser}}
+
+											<center>
+												<img src="//{{cdnPath}}/users/{{theUser.meteorUserId}}/profile/large-{{photo}}.jpg" class="doerProfileImage" style="width:230px; height:230px; border:2px solid black; position:relative; display:block;">
+											</center>
+										
+											<h2>{{nameFirst}} {{nameLast}}</h2>
+											
+											<br />
+											
+											<input type="number" placeholder="$0.00" step="0.01" class="inputPayUser" />
+											
+											<br />
+											
+											<div class="btn btn-success">
+												<i class="fas fa-arrow-down"></i> Request Money
+											</div>
+											<div class="btn btn-primary">
+												<i class="fas fa-arrow-up"></i> Send Money
+											</div>
+											
+										{{/with}}
+										
+									</center>
+								</div>
+							
+							</div>
+							
+							
+							
+						</div>
+					</div>
+
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

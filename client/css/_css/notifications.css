@@ -1,0 +1,23 @@
+
+
+
+/** =====================
+ * Responsive
+ ========================*/
+
+
+@media only screen and (min-width:0px) {
+	
+	.notificationSocialPost:hover{
+		text-decoration:none;
+		background:#d1e7ff;
+	}
+	
+}
+
+
+@media only screen and (min-width:768px) {
+	
+	
+	
+}

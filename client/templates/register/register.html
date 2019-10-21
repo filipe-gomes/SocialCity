@@ -1,0 +1,99 @@
+
+<!--
+#
+# TEMPLATE: REGISTER
+#
+# -->
+<template name="register">
+
+	<div class="blog section section-invert customMenuPadding">
+		<div class="container ">
+
+				<div class="row ">
+					<div class="col-sm-12 col-md-6 offset-md-3"  style="margin:0 auto;">
+						<div class="card mt-4">
+							<div class="card-body">
+
+
+								<div class="text-center m-b-md">
+									<h3>Register your Account</h3>
+									<hr />
+								</div>
+
+								<form>
+									<div class="row">
+
+										<div class="form-group col-sm-12">
+											<label>First Name</label>
+											<input type="text"  id="nameFirst" class="form-control" name="nameFirst" required="">
+										</div>
+										<div class="form-group col-sm-12">
+											<label>Last Name</label>
+											<input type="text"  id="nameLast" class="form-control" name="nameLast" required="">
+										</div>
+
+										<hr />
+
+										<div class="form-group col-sm-12">
+											<label>Password</label>
+											<input type="password"  id="password" class="form-control" name="password" required="">
+										</div>
+										<div class="form-group col-sm-12">
+											<label>Repeat Password</label>
+											<input type="password"  id="password_repeat" class="form-control" name="password_repeat" required="">
+										</div>
+
+										<hr />
+
+										<div class="form-group col-lg-12">
+											<label>Email Address</label>
+											<input type="email"  id="email" class="form-control" name="email" required="">
+										</div>
+
+										<hr />
+
+										<div class="checkbox col-lg-12">
+
+											<div class="checkbox checkbox-single checkbox-danger">
+												<label>
+												<input type="checkbox">
+												Sign up for our newsletter</label>
+											</div>
+
+											<div class="checkbox checkbox-single checkbox-danger">
+												<label>
+												<input type="checkbox" required>
+												I agree to the <a href="#" target="_blank" style="font-weight:bold;">Terms & Conditions</a> and <a href="#" target="_blank" style="font-weight:bold;">Privacy Policy</a></label>
+											</div>
+
+										</div>
+									</div>
+									<div class="text-center">
+										<button type="submit" class="ladda-button btn btn-danger btn-block uiActionRegisterButton" data-style="slide-up"><span class="ladda-label">Register</span></button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<br />
+				<br />
+				<div class="row">
+					<div class="col-md-12 text-center" >
+						<a class="btn btn-primary" href="/login">Already have an account? Login</a>
+					</div>
+				</div>
+				<div class="row py-4">
+					<div class="col-md-12 text-center" >
+						<a class="btn btn-primary" href="/forgot">Forgot your password?</a>
+					</div>
+				</div>
+
+
+		</div>
+	</div>
+
+</template>

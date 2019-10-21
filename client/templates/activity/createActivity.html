@@ -1,0 +1,572 @@
+<template name="createActivity">
+
+
+			<h3 class="section-title text-center m-1">Create a DOER Activity</h3>
+
+			<div class="card-deck">
+
+				<div class="col-md-12 py-4">
+
+						<form id="">
+
+							<div class="card">
+
+								<div class="form-group col-sm-12 mt-2">
+									<h5>Activity Title</h5>
+									<input type="text" class="form-control" name="newTitle" required="true"/>
+								</div>
+
+
+								<div class="form-group col-lg-12">
+
+									<h5>Search Tags</h5>
+									<h6 style="font-size:10px;"><i>Tag this activity so users may search for it. Example: Yoga, Stretching, Relax</i></h6>
+
+									<input class="tags form-control" name="tags" value="" />
+
+								</div>
+
+
+								<div class="form-group col-lg-12">
+									<h5>Address</h5>
+
+									<input class="form-control" id="geoAddress" placeholder="" onFocus="geolocate()" type="search"  name="geoAddress" autocomplete="rutjfkde" />
+
+									<div id="locationField" style="display:none;">
+										<input class="field" id="street_number" disabled="true"/>
+										<input class="field" id="route" disabled="true"/>
+										<input class="field" id="locality" disabled="true"/>
+										<input class="field" id="administrative_area_level_1" disabled="true"/>
+										<input class="field" id="postal_code" disabled="true"/>
+										<input class="field" id="country" disabled="true"/>
+
+										<input class="field" id="lat" disabled="true"/>
+										<input class="field" id="lng" disabled="true"/>
+									</div>
+									<h6 style="font-size:10px;"><i>You can use an exact address, city or country to help locate your activity to other users.</i></h6>
+
+									<script>
+
+										var placeSearch, autocomplete;
+										var componentForm = {
+											street_number: 'short_name',
+											route: 'long_name',
+											locality: 'long_name',
+											administrative_area_level_1: 'short_name',
+											country: 'long_name',
+											postal_code: 'short_name'
+										};
+
+										function initAutocomplete() {
+											// Create the autocomplete object, restricting the search to geographical
+											// location types.
+											autocomplete = new google.maps.places.Autocomplete(
+												/** @type {!HTMLInputElement} */
+												(document.getElementById('geoAddress')), {
+													types: ['geocode']
+												});
+
+											// When the user selects an address from the dropdown, populate the address
+											// fields in the form.
+											autocomplete.addListener('place_changed', fillInAddress);
+										}
+
+										function fillInAddress() {
+											// Get the place details from the autocomplete object.
+											var place = autocomplete.getPlace();
+
+											for (var component in componentForm) {
+												document.getElementById(component).value = '';
+												document.getElementById(component).disabled = false;
+											}
+
+											// Get each component of the address from the place details
+											// and fill the corresponding field on the form.
+											for (var i = 0; i < place.address_components.length; i++) {
+												var addressType = place.address_components[i].types[0];
+												if (componentForm[addressType]) {
+													var val = place.address_components[i][componentForm[addressType]];
+													document.getElementById(addressType).value = val;
+												}
+											}
+
+											$("#lat").val(place.geometry.location.lat());
+											$("#lng").val(place.geometry.location.lng());
+										}
+
+										// Bias the autocomplete object to the user's geographical location,
+										// as supplied by the browser's 'navigator.geolocation' object.
+										function geolocate() {
+											if (navigator.geolocation) {
+												navigator.geolocation.getCurrentPosition(function(position) {
+													var geolocation = {
+														lat: position.coords.latitude,
+														lng: position.coords.longitude
+													};
+													var circle = new google.maps.Circle({
+														center: geolocation,
+														radius: position.coords.accuracy
+													});
+													autocomplete.setBounds(circle.getBounds());
+												});
+											}
+										}
+
+										setTimeout(function(){
+											initAutocomplete();
+										},100);
+
+									</script>
+
+									<!--
+
+									<h5>URL</h5>
+									<input type="text" class="form-control" name="newActivityUrl" required="true" />
+
+									-->
+
+								</div>
+
+							</div>
+
+
+							<div class="card">
+								<div class="form-group col-sm-12 mt-2">
+
+									<h5>Organizer</h5>
+
+
+										<ul class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="nav-home-tab" data-toggle="pill" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+													<i class="far fa-smile"></i> Personal
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+													<i class="fas fa-dot-circle"></i> Group
+												</a>
+											</li>
+										</ul>
+
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+												<div class="col-lg-12">
+
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="organizer" id="" value="{{currentUser.username}}"  data-organizerType="user" data-id="{{currentUser._id}}" checked />
+														{{currentUser.username}}
+													  </label>
+													</div>
+
+												</div>
+
+											</div>
+
+											<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+												<div class="checkbox col-lg-12">
+
+													{{#each myGroups}}
+													<div class="form-check">
+													  <label class="form-check-label">
+														<input class="form-check-input" type="radio" name="organizer" id="" value="{{title}}" data-organizerType="group" data-id="{{_id}}" />
+														{{title}}
+													  </label>
+													</div>
+													{{/each}}
+
+												</div>
+
+											</div>
+										</div>
+
+
+
+								</div>
+							</div>
+
+							<div class="card  mt-4">
+
+
+								<div class="form-group col-sm-12 mt-2">
+									<h5>Short Description</h5>
+									<input type="text" class="form-control" name="newShortDescription" maxlength="200" />
+								</div>
+
+
+								<!-- SUMMERNOTE -->
+								<div class="form-group col-sm-12">
+									<h5>Full Description</h5>
+									<div class="form-control summernote newDescriptionSummernote" style="height:200px;"></div>
+								</div>
+								<!-- SUMMERNOTE -->
+
+
+							</div>
+
+
+
+							<!-- EVENT FREQUENCY -->
+							<div class="card mt-4">
+
+								<div class="form-group col-lg-6 mt-2">
+
+									<h5>Event Frequency</h5>
+
+									<div class="input-group" data-autoclose="true">
+										<select name="newRepeatFrequency" class="form-control newRepeatFrequency">
+											<option value="once">Once</option>
+											<option value="weekly">Weekly</option>
+											<option value="monthly">Monthly</option>
+										</select>
+									</div>
+
+								</div>
+
+
+								<div class="form-group col-sm-12">
+
+									<div class="col-lg-12 uiCreateCalendar">
+
+										<div class="form-group col-lg-12 mt-2">
+											<h5>Dates</h5>
+
+											<div class="input-group" data-autoclose="true">
+												<div name="newDates" type="text" value="" class="form-control datepicker" autocomplete="off" style="width:100% !important;"></div>
+											</div>
+											{{#each dates}}
+												 <script>
+													setTimeout(function(){
+
+														console.log("running interval");
+
+														var theDate = "{{this}}";
+														var theSplit = theDate.split("/");
+
+														 $.each($(".datepicker").find("td"), function () {
+															if($(this).text()==theSplit[1]){
+																$(this).addClass("active");
+															}
+															if("0"+$(this).text()==theSplit[1]){
+																$(this).addClass("active");
+															}
+														 });
+
+													},1000);
+												  </script>
+
+												<strong class="text-danger">{{convertToDate this}}</strong>
+												<br />
+											{{/each}}
+
+										</div>
+
+									</div>
+
+
+									<div class="form-group col-lg-6 uiCreateDays" style="display:none;">
+
+										<h5>What days?</h5>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Sunday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Monday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Tuesday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Wednesday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Thursday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Friday
+											</label>
+										</div>
+
+										<div class="form-check">
+											<label class="form-check-label">
+												<input type="checkbox" class="form-check-input" value="sunday"> Saturday
+											</label>
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+
+
+
+
+
+
+							<div class="card  mt-4" style="padding:10px;">
+
+								<div class="row" style="margin:0px;">
+									<div class="form-group col-lg-6">
+										<label>Start Time</label>
+
+										<div class="input-group" data-autoclose="true">
+
+											<div class="input-group" data-autoclose="true">
+
+
+												<select name="newStartHour" class="form-control">
+													<option data-minutes="0" value="12">12</option>
+													<option data-minutes="0" value="1">1</option>
+													<option data-minutes="0" value="2">2</option>
+													<option data-minutes="0" value="3">3</option>
+													<option data-minutes="0" value="4">4</option>
+													<option data-minutes="0" value="5">5</option>
+													<option data-minutes="0" value="6">6</option>
+													<option data-minutes="0" value="7">7</option>
+													<option data-minutes="0" value="8">8</option>
+													<option data-minutes="0" value="9">9</option>
+													<option data-minutes="0" value="10">10</option>
+													<option data-minutes="0" value="11">11</option>
+												</select>
+												<select name="newStartMinute" class="form-control">
+													<option data-minutes="0" value="00">00</option>
+													<option data-minutes="0" value="05">05</option>
+													<option data-minutes="0" value="10">10</option>
+													<option data-minutes="0" value="15">15</option>
+													<option data-minutes="0" value="20">20</option>
+													<option data-minutes="0" value="25">25</option>
+													<option data-minutes="0" value="30">30</option>
+													<option data-minutes="0" value="35">35</option>
+													<option data-minutes="0" value="40">40</option>
+													<option data-minutes="0" value="45">45</option>
+													<option data-minutes="0" value="50">50</option>
+													<option data-minutes="0" value="55">55</option>
+												</select>
+												<select name="newStartAmPm" class="form-control">
+													<option data-minutes="0" value="am">AM</option>
+													<option data-minutes="0" value="pm">PM</option>
+												</select>
+
+											</div>
+
+										</div>
+									</div>
+
+									<div class="form-group col-lg-6">
+										<label>End Time</label>
+
+										<div class="input-group" data-autoclose="true">
+
+											<div class="input-group" data-autoclose="true">
+
+
+												<select name="newEndHour" class="form-control">
+													<option data-minutes="0" value="12">12</option>
+													<option data-minutes="0" value="1">1</option>
+													<option data-minutes="0" value="2">2</option>
+													<option data-minutes="0" value="3">3</option>
+													<option data-minutes="0" value="4">4</option>
+													<option data-minutes="0" value="5">5</option>
+													<option data-minutes="0" value="6">6</option>
+													<option data-minutes="0" value="7">7</option>
+													<option data-minutes="0" value="8">8</option>
+													<option data-minutes="0" value="9">9</option>
+													<option data-minutes="0" value="10">10</option>
+													<option data-minutes="0" value="11">11</option>
+												</select>
+												<select name="newEndMinute" class="form-control">
+													<option data-minutes="0" value="00">00</option>
+													<option data-minutes="0" value="05">05</option>
+													<option data-minutes="0" value="10">10</option>
+													<option data-minutes="0" value="15">15</option>
+													<option data-minutes="0" value="20">20</option>
+													<option data-minutes="0" value="25">25</option>
+													<option data-minutes="0" value="30">30</option>
+													<option data-minutes="0" value="35">35</option>
+													<option data-minutes="0" value="40">40</option>
+													<option data-minutes="0" value="45">45</option>
+													<option data-minutes="0" value="50">50</option>
+													<option data-minutes="0" value="55">55</option>
+												</select>
+												<select name="newEndAmPm" class="form-control">
+													<option data-minutes="0" value="am">AM</option>
+													<option data-minutes="0" value="pm">PM</option>
+												</select>
+
+
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- DISABLED FOR NOW UNTIL PAYMENT GATEWAYS -->
+							<div class="card  mt-4" style="padding:10px;">
+
+								<label>Events Ticket</label>
+
+								<span class="uiActionTicketsFreeTemplate" style="display:none;">
+
+									<div class="row">
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Ticket name</label>
+											<input type="text" class="form-control ticketName" name="ticketName" required="true" />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Number of tickets?</label>
+											<input type="text" class="form-control ticketQuantity" name="ticketQuantity" required="true" />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Price</label>
+											<input type="number" min="0.00" max="10000.00" step="0.01" class="form-control ticketPrice" name="ticketPrice" required="true"  value="0.00" />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Remove?</label>
+											<br />
+											<div class="btn btn-primary uiActionTicketRowDelete">
+												<i class="far fa-trash-alt"></i>
+											</div>
+										</div>
+
+										<hr />
+
+									</div>
+
+								</span>
+								<span class="uiActionTicketsPaidTemplate" style="display:none;">
+
+									<div class="row">
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Ticket name</label>
+											<input type="text" class="form-control ticketName" name="ticketName" required="true" />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Number of tickets?</label>
+											<input type="text" class="form-control ticketQuantity" name="ticketQuantity" required="true" />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Price</label>
+											<input type="number" min="0.00" max="10000.00" step="0.01" class="form-control ticketPrice" name="ticketPrice" required="true"  />
+										</div>
+
+										<div class="form-group col-sm-12 col-md-3">
+											<label>Remove?</label>
+											<br />
+											<div class="btn btn-primary uiActionTicketRowDelete">
+												<i class="far fa-trash-alt"></i>
+											</div>
+										</div>
+
+										<hr />
+
+									</div>
+
+								</span>
+
+
+
+								<!-- DYNAMIC GENERATION -->
+								<span class="uiActionTickets">
+
+								</span>
+								<!-- DYNAMIC GENERATION -->
+
+
+
+								<div class="row">
+									<div class="col-sm-12">
+
+										<div class="btn btn-primary uiActionTicketCreateFree">
+											<i class="far fa-plus-square"></i> Create Free Ticket
+										</div>
+										<div class="btn btn-primary uiActionTicketCreatPaid">
+											<i class="far fa-plus-square"></i> Create Paid Ticket
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+
+
+							<div class="card  mt-4">
+
+
+								<div class="checkbox col-lg-12">
+
+									<label>Age Restriction</label>
+
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Open to all ages" checked>
+										Open to all ages
+									  </label>
+									</div>
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Directed to children under the age of 18">
+										Directed to minors under the age of 18
+									  </label>
+									</div>
+									<div class="form-check">
+									  <label class="form-check-label">
+										<input class="form-check-input" type="radio" name="newAgeRestriction" id="" value="Directed to adults only">
+										Directed to adults over the age of 18+
+									  </label>
+									</div>
+
+								</div>
+
+							</div>
+
+
+							<div class="card  mt-4">
+								<div class="text-center">
+									<button type="submit" class="ladda-button btn btn-lg btn-danger btn-block btnCreateNewActivity" data-style="slide-up">
+										<span class="ladda-label">Create Activity</span>
+									</button>
+								</div>
+							</div>
+
+						</form>
+
+
+				</div>
+			</div>
+
+
+</template>

@@ -1,0 +1,50 @@
+<template name="search">
+
+	<!-- Try DOER Now -->
+	<div class="customMenuPadding section">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-sm-12">
+				
+					<h3>People</h3>
+				
+					{{#each searchResults}}
+						<div class="card">
+							<div class="card-body">
+							
+								<div class="row">
+									<div class="col-6 col-md-2">
+										<center>
+											<a href="/social/@{{username}}">
+												<div class="doerProfileImage" style="float:left; top:0; margin:0 auto; display:block; width:170px; height:170px; border:2px solid black; background-image: url('//{{cdnPath}}/users/{{meteorUserId}}/profile/large-{{photo}}.jpg'); background-size:cover;"></div>
+											</a>
+										</center>
+									</div>
+									<div class="col-6 col-md-10">
+										<h2>{{nameFirst}} {{nameLast}}</h2>
+										<p>
+											<a href="/social/@{{username}}" class="btn btn-primary mt-2">
+												<i class="fa fa-user-friends"></i> Social
+											</a>
+										</p>
+										<p>
+											<a href="/surf/@{{username}}" class="btn btn-primary mt-2">
+												<i class="fa fa-fish"></i> Surf
+											</a>
+										</p>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+					{{/each}}
+
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</template>

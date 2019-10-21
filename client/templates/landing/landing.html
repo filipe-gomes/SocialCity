@@ -1,0 +1,194 @@
+<template name="landing">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+
+
+	<!-- Welcome Section -->
+	<div class="welcome d-flex justify-content-center flex-column">
+
+		<!-- Inner Wrapper -->
+		<div class="inner-wrapper mt-auto mb-auto container">
+
+			<!-- DESKTOP -->
+			<span class="d-none d-md-block">
+			
+				<span style="background:black;">
+					<video class="parallax-background" autoplay="" loop="" muted="" style="position: absolute; min-width: 100%; width: auto; min-height: 100vh; top: 0px; left: 0px; display: block; opacity:0.25;">
+						<source src="//{{cdnPath}}/default/YouDoer-420.mp4" type="video/mp4">
+					</video>
+				</span>
+
+			</span>
+
+			<!-- MOBILE -->
+			<span class="d-block d-md-none">
+				<div class="myVideo" style="background:url('//{{cdnPath}}/default/doerMobileWallpaper.jpg'); background-size:cover; background-position:fixed;">
+
+				</div>
+			</span>
+
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 mt-auto mb-auto mr-3">
+
+					<center>
+						<img src="//{{cdnPath}}/default/logoLight.png" class="img-fluid mt-4 mb-4" style="max-width:340px;" />
+						<h1 class="text-white">It's Time for a New Social Network</h1>
+						<h2 class="text-white">Let's build a better world, together.</h2>
+					</center>
+				
+					<center class="mt-4">
+						<a href="/login" class="btn btn-lg btn-primary align-self-center mr-2" style="color:white !important;"><i class="fa fa-sign-in-alt mr-2"></i>Login</a>
+						<a href="/register" class="btn btn-lg btn-success align-self-center ml-2" style="color:white !important;"><i class="fa fa-user-plus mr-2"></i>Register</a>
+					</center>
+				</div>
+
+			</div>
+		</div>
+		<!-- / Inner Wrapper -->
+
+
+
+
+		<!-- MOBILE -->
+		<span class="d-block d-md-none">
+		</span>
+
+		<!-- DESKTOP -->
+		<span class="d-block d-sm-none d-md-block">
+		</span>
+
+
+	</div>
+	<!-- / Welcome Section -->
+	
+
+	<!-- SOCIAL -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Socialize</h3>
+		<p class="text-center">Create posts, share photos and videos with <b>no ads</b> in your social feed.</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Social.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	
+	<!-- DISCUSSION -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Discussions</h3>
+		<p class="text-center">Discuss and vote on important topics. Laugh, learn, comment and enjoy!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Discussion.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- PEOPLE -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Connect with People</h3>
+		<p class="text-center">Meet new people, find relationships and oppourtunities to engage!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/People.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+
+	<!-- ACTIVITIES -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Acitvities</h3>
+		<p class="text-center">Find interesting things to do, invite your friends and colleagues and explore the city!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Activities.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- MARKET -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Local Marketplace</h3>
+		<p class="text-center">Buy and sell things from people and businesses around you, supporting the local economy!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Market.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- WORK  -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Work -- the Gig Economey</h3>
+		<p class="text-center">Create or work a job for money, get reviews and become a professional!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Work.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- MONEY -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Instant Online Payments</h3>
+		<p class="text-center">Send and receive payments online for free. Escrow services available.</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Money.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- RIDES -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Rides</h3>
+		<p class="text-center">Create or fullfill ride requests from other people in your area.</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Rides.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<!-- PLACES -->
+	<div class="testimonials section py-4 mb-4 bg-white" style="z-index: 100; position: relative;">
+		<h3 class="section-title text-center m-5">Places</h3>
+		<p class="text-center">Your city is full of places you've never been, let Social City be your guide!</p>
+
+		<div class="container">
+			<img src="//{{cdnPath}}/landing/Places.jpg" class="img-fluid" style="width:100%;" />
+		</div>
+
+	</div>
+
+	<br />
+
+	{{> footer}}
+
+	<style>
+		#onesignal-bell-container {
+			display: none !important;
+		}
+	</style>
+
+</template>

@@ -1,0 +1,306 @@
+<template name="createGroup">
+
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-131">
+	</script>
+	<script>
+		if (location.hostname !== "localhost") {
+
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-4039763-131');
+		}
+	</script>
+
+	{{> navigation}}
+	
+
+	<!-- Try DOER Now -->
+	<div class="blog section section-invert customMenuPadding">
+		<h3 class="section-title text-center m-1">Create a DOER Group</h3>
+		<div class="container">
+			
+			<div class="card-deck">
+			
+				<div class="col-md-12 py-4">
+			
+						<form id="uiActionSubmitNewGroup">
+						
+							<input type="hidden" name="createOrUpdate" value="0" />
+					
+							<div class="card">
+								<div class="form-group col-sm-12">
+									<label>Group Title</label>
+									<input type="text" class="form-control" name="newTitle" required="true"/>
+								</div>
+								
+								
+								<div class="form-group col-lg-12">
+								
+									<label>Type of Group</label>
+							 
+									<select class=" input-large form-control" name="newCategory" required="true">
+										<option value="" selected="selected">Select</option>
+										<option value="social">Social</option>
+										<option value="business">Business</option>
+									</select>
+									
+								</div>	
+								
+								
+								<div class="form-group col-lg-12">
+								
+									<label>Location (optional)</label>
+								
+									<input class="form-control" id="geoAddress" placeholder="Enter your address" onFocus="geolocate()" type="search"  name="geoAddress" autocomplete="rutjfkde" />
+									<div id="locationField" style="display:none;">
+										<input class="field" id="street_number" disabled="true"/>
+										<input class="field" id="route" disabled="true"/>
+										<input class="field" id="locality" disabled="true"/>
+										<input class="field" id="administrative_area_level_1" disabled="true"/>
+										<input class="field" id="postal_code" disabled="true"/>
+										<input class="field" id="country" disabled="true"/>
+										
+										<input class="field" id="lat" disabled="true"/>
+										<input class="field" id="lng" disabled="true"/>
+									</div>
+									<p>You can use an exact address, city or country to help locate your group to other users.<br />Leave it blank if not applicable.</p>
+
+
+									<script>
+									
+										var placeSearch, autocomplete;
+										var componentForm = {
+											street_number: 'short_name',
+											route: 'long_name',
+											locality: 'long_name',
+											administrative_area_level_1: 'short_name',
+											country: 'long_name',
+											postal_code: 'short_name'
+										};
+
+										function initAutocomplete() {
+											// Create the autocomplete object, restricting the search to geographical
+											// location types.
+											autocomplete = new google.maps.places.Autocomplete(
+												/** @type {!HTMLInputElement} */
+												(document.getElementById('geoAddress')), {
+													types: ['geocode']
+												});
+
+											// When the user selects an address from the dropdown, populate the address
+											// fields in the form.
+											autocomplete.addListener('place_changed', fillInAddress);
+										}
+
+										function fillInAddress() {
+											// Get the place details from the autocomplete object.
+											var place = autocomplete.getPlace();
+
+											for (var component in componentForm) {
+												document.getElementById(component).value = '';
+												document.getElementById(component).disabled = false;
+											}
+
+											// Get each component of the address from the place details
+											// and fill the corresponding field on the form.
+											for (var i = 0; i < place.address_components.length; i++) {
+												var addressType = place.address_components[i].types[0];
+												if (componentForm[addressType]) {
+													var val = place.address_components[i][componentForm[addressType]];
+													document.getElementById(addressType).value = val;
+												}
+											}
+											
+											$("#lat").val(place.geometry.location.lat());
+											$("#lng").val(place.geometry.location.lng());
+										}
+
+										// Bias the autocomplete object to the user's geographical location,
+										// as supplied by the browser's 'navigator.geolocation' object.
+										function geolocate() {
+											if (navigator.geolocation) {
+												navigator.geolocation.getCurrentPosition(function(position) {
+													var geolocation = {
+														lat: position.coords.latitude,
+														lng: position.coords.longitude
+													};
+													var circle = new google.maps.Circle({
+														center: geolocation,
+														radius: position.coords.accuracy
+													});
+													autocomplete.setBounds(circle.getBounds());
+												});
+											}
+										}
+										
+										setTimeout(function(){
+											initAutocomplete();
+										},100);
+										
+									</script>
+									
+		
+									
+								</div>
+									
+								
+							</div>
+							
+							<div class="card">
+								<div class="form-group col-sm-12">
+									
+									<label>Owner</label>
+							
+										<ul class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="nav-home-tab" data-toggle="pill" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+													<i class="far fa-smile"></i> Personal
+												</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" id="nav-profile-tab" data-toggle="pill" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+													<i class="fas fa-dot-circle"></i> Group
+												</a>
+											</li>
+										</ul>
+										
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+											
+												<div class="col-lg-12">
+													<label>Your Accounts</label>
+												
+													{{#each theUserMeta}}
+														<div class="form-check">
+														  <label class="form-check-label">
+															<input class="form-check-input" type="radio" name="ownerUsername" id="" value="{{username}}" data-ownerType="user" checked />
+															{{username}}
+														  </label>
+														</div>
+													{{/each}}
+													
+												</div>
+												
+											</div>
+											
+											<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+											
+												<div class="checkbox col-lg-12">
+												
+													<label>Your Groups</label>
+													
+													{{#each myGroups}}
+														<div class="form-check">
+														  <label class="form-check-label">
+															<input class="form-check-input" type="radio" name="ownerUsername" id="" value="{{title}}" data-ownerType="group" />
+															{{title}}
+														  </label>
+														</div>
+													{{/each}}
+													
+												</div>
+											
+											</div>
+										</div>
+										
+										
+										
+								</div>
+							</div>
+							
+							<div class="card  mt-4">
+								
+								<!-- SUMMERNOTE -->
+								<div class="form-group col-sm-12">
+									<label>Description</label>
+									<textarea class="form-control newDescription" name="newDescription" style="height:200px;"></textarea>
+								</div>
+								<!-- SUMMERNOTE -->
+							
+							</div>
+							
+							<div class="card mt-4">
+							
+							
+								
+								<div class="row" style="margin:0px;">
+									<div class="form-group col-lg-6">
+									
+										<div class="checkbox col-lg-12">
+												
+											<label>Group Visibility</label>
+											
+											<div class="form-check">
+											  <label class="form-check-label">
+												<input class="form-check-input" type="radio" name="groupVisibility" id="" value="public"  checked="checked" />
+												Public Group
+											  </label>
+											</div>
+											
+											<div class="form-check">
+											  <label class="form-check-label">
+												<input class="form-check-input" type="radio" name="groupVisibility" id="" value="private" />
+												Private Group
+											  </label>
+											</div>
+											
+										</div>
+										
+										<div class="checkbox col-lg-12">
+												
+											<label>Content Rating</label>
+											
+											<div class="form-check">
+											  <label class="form-check-label">
+												<input class="form-check-input" type="radio" name="contentRating" id="" value="everyone"  checked="checked"  />
+												Everyone
+											  </label>
+											</div>
+											
+											<div class="form-check">
+											  <label class="form-check-label">
+												<input class="form-check-input" type="radio" name="contentRating" id="" value="adult" />
+												Adult Content
+											  </label>
+											</div>
+											
+										</div>
+										
+									
+									</div>
+								</div>
+							
+							</div>
+							
+							
+							
+							
+							
+							<div class="card  mt-4">
+								<div class="text-center">
+									<button type="submit" class="ladda-button btn btn-lg btn-danger btn-block uiActionSubmitNewGroup" data-style="slide-up">
+										<span class="ladda-label">Create Group</span>
+									</button>
+								</div>
+							</div>
+							
+						</form>
+						
+				
+				</div>
+			</div>
+			
+		</div>	
+	</div>	
+
+
+	{{> footer}}
+
+
+</template>

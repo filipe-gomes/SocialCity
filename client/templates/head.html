@@ -1,0 +1,69 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    
+	
+	
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	
+	<!-- FOR ANIMATE CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+	
+	
+	<script async defer	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVCfx77UouAvnSAsP-a08N0ho7RRgXzIo"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVCfx77UouAvnSAsP-a08N0ho7RRgXzIo&libraries=places" ></script>
+
+	<title>SocialCity – Home</title>
+	
+	<!-- FAVICON -->
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+	<!-- FAVICON -->
+	
+	<!-- OPEN GRAPH -->
+	<meta property="og:image:height" content="1257">
+	<meta property="og:image:width" content="2400">
+	<meta property="og:title" content="SocialCity.website">
+	<meta property="og:description" content="It's time for a new social network. Let's build a better world, together! Sign up for a free account and build the future!">
+	<meta property="og:url" content="https://SocialCity.website">
+	<meta property="og:image" content="https://cdn.SocialCity.website/default/openGraph.jpg">
+	<!-- OPEN GRAPH -->
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-4039763-132"></script>
+	<script>
+	if(location.hostname !== "localhost"){
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-4039763-132');
+	  
+	  var theUser = "{{currentUser._id}}";
+	  if(theUser.length >= 3){
+		  setTimeout(function(){
+			gtag('set', {'user_id': '{{currentUser._id}}'}); // Set the user ID using signed-in user_id.
+		  },5000);
+	  }
+	  
+	}
+	</script>
+	
+	
+	<script>
+			
+	</script>
+
+	
+</head>
