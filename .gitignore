@@ -1,3 +1,10 @@
+meteor/local/
 node_modules/
 start_production.sh
 settings_production.json
+.meteor/versions
+.meteor/release
+.meteor/platforms
+.meteor/.id
+.meteor/.finished-upgraders
+.DS_Store
